@@ -22,6 +22,8 @@ onready var jumpBufferTimer: = $BufferJumpTimer
 onready var coyoteJumpTimer: = $CoyoteJumpTimer
 onready var remoteTransform2D: = $RemoteTransform2D
 
+var old_pos = Vector2.ZERO
+
 func _ready():
 	animatedSprite.frames = load("res://Player/Resources/PlayerGreeSkin.tres")
 
@@ -31,11 +33,12 @@ func _physics_process(delta):
 	input_vector.y = Input.get_axis("ui_up", "ui_down")
 	
 	match state:
-		MOVE: move_state(input_vector)
+		MOVE: move_state(input_vector, delta)
 		CLIMB: climb_state(input_vector)
+	old_pos = global_position
 
-func move_state(input_vector):
-	if is_on_ladder() and Input.is_action_pressed("ui_up"):
+func move_state(input_vector, delta):
+	if is_on_ladder() and Input.is_action_just_pressed("ui_up"):
 		state = CLIMB
 	
 	apply_gravity()
@@ -52,15 +55,15 @@ func move_state(input_vector):
 	else:
 		animatedSprite.animation = "Jump"
 	
+	var was_on_floor = is_on_floor()
+	velocity = move_and_slide(velocity, Vector2.UP)
+	
 	if can_jump():
-		input_jump()
+		input_jump(delta)
 	else:
 		input_jump_release()
 		input_double_jump()
 		buffer_jump()
-	
-	var was_on_floor = is_on_floor()
-	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	# Just landed
 	if is_on_floor() and not was_on_floor:
@@ -102,18 +105,18 @@ func can_jump():
 
 func reset_double_jumps():
 	double_jump_count = moveConfig.DOUBLE_JUMPS
-	
-func input_jump():
+
+func input_jump(delta):
 	if Input.is_action_just_pressed("ui_up") or buffered_jump:
 		buffered_jump = false
 		coyote_jump = false
 		velocity.y = moveConfig.JUMP_FORCE
-		SoundPlayer.play_sound(SoundPlayer.JUMP)
+		velocity.x = ((global_position - old_pos)/delta).x
 
 func input_jump_release():
-	if not Input.is_action_pressed("ui_up") \
+	if Input.is_action_just_released("ui_up") \
 			and velocity.y < moveConfig.JUMP_RELEASE_FORCE:
-		velocity.y = moveConfig.JUMP_RELEASE_FORCE
+		velocity.y = velocity.y * .5
 
 func input_double_jump():
 	if Input.is_action_just_pressed("ui_up") and double_jump_count > 0:
@@ -137,10 +140,23 @@ func apply_friction():
 	velocity.x = move_toward(velocity.x, 0, moveConfig.FRICTION)
 
 func apply_acceleration(direction: int):
-	velocity.x = move_toward(
-		velocity.x,
-		moveConfig.MAX_SPEED * direction,
-		moveConfig.ACCELERATION)
+	var max_speed = 0
+	if is_on_floor():
+		max_speed = moveConfig.MAX_SPEED
+	else:
+		max_speed = moveConfig.MAX_SPEED * 1.2
+		
+	if abs(velocity.x) <= abs(moveConfig.MAX_SPEED) \
+			or sign(velocity.x) != direction:
+		velocity.x = move_toward(
+			velocity.x,
+			max_speed * direction,
+			moveConfig.ACCELERATION)
+	else:
+		velocity.x = move_toward(
+			velocity.x,
+			max_speed * direction,
+			moveConfig.FRICTION * 0.8)
 
 func _on_JumpBufferTimer_timeout():
 	buffered_jump = false
