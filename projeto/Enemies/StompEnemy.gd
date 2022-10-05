@@ -21,6 +21,9 @@ enum SLAM_DIRECTION {
 }
 
 export(SLAM_DIRECTION) var slam_direction
+export(float) var slam_speed = 200
+export(float) var return_speed = 50
+
 
 var direction = Vector2.ZERO
 
@@ -65,7 +68,7 @@ func hover_state():
 func fall_state(delta):
 	animated_sprite.play('falling')
 	collisionShape.disabled = true
-	position += (200 * delta) * direction
+	position += (slam_speed * delta) * direction
 	if raycast.is_colliding():
 		var collision_point = raycast.get_collision_point()
 		position.y = collision_point.y + (global_position.y - colissionPoint.global_position.y)
@@ -80,7 +83,7 @@ func land_state():
 
 func rise_state(delta):
 	animated_sprite.play('idle')
-	position.y = move_toward(position.y, start_position.y, 50 * delta)
-	position.x = move_toward(position.x, start_position.x, 50 * delta)
+	position.y = move_toward(position.y, start_position.y, return_speed * delta)
+	position.x = move_toward(position.x, start_position.x, return_speed * delta)
 	if position == start_position:
 		state = HOVER

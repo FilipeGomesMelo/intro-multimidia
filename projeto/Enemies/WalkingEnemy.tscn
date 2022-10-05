@@ -50,8 +50,6 @@ enabled = true
 cast_to = Vector2( 0, 2 )
 
 [node name="HitBox" parent="." instance=ExtResource( 3 )]
-monitoring = false
-monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox"]
 polygon = PoolVector2Array( -6, -1, -6, -10, -2, -12, 0, -16, 1, -16, 3, -12, 7, -10, 7, -1 )
