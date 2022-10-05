@@ -1,7 +1,7 @@
 extends Node
 
-const HURT = preload("res://sounds/hurt.wav")
-const JUMP = preload("res://sounds/jump.wav")
+const HURT = preload("res://Sounds/hurt.wav")
+const JUMP = preload("res://Sounds/jump.wav")
 
 onready var audioPlayers = $AudioPlayers
 
