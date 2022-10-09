@@ -11,13 +11,20 @@ export(Resource) var moveConfig = \
 	preload("res://Player/Resources/DefaultPlayerMovementConfig.tres") \
 		as PlayerMovementConfig
 
+export(bool) var reset_jump_on_ground = true
+export(bool) var reset_jump_on_wall = true
+export(bool) var reset_action_on_ground = true
+export(bool) var reset_action_on_wall = true
+
 var velocity = Vector2.ZERO
 var state = MOVE
 var buffered_jump = false
 var coyote_jump = false
+var dash_coyote_jump = false
 var wall_coyote_jump = 0
 
 onready var double_jump_count = moveConfig.DOUBLE_JUMPS
+onready var action_count = moveConfig.ACTION_COUNT
 onready var animatedSprite: = $AnimatedSprite
 onready var ladderCheck: = $LadderCheck
 onready var jumpBufferTimer: = $BufferJumpTimer
@@ -58,12 +65,18 @@ func move_state(input_vector, delta):
 		apply_acceleration(input_vector.x)
 	
 	if is_on_floor():
-		reset_double_jumps()
+		if reset_jump_on_ground:
+			reset_double_jumps()
+		if reset_action_on_ground:
+			reset_actions()
 	else:
 		animatedSprite.animation = "Jump"
 	
 	if is_on_wall():
-		reset_double_jumps()
+		if reset_jump_on_wall:
+			reset_double_jumps()
+		if reset_action_on_wall:
+			reset_actions()
 	
 	var was_on_floor = is_on_floor()
 	var was_on_wall = 0
@@ -71,13 +84,9 @@ func move_state(input_vector, delta):
 		was_on_wall = -1
 	elif rightWallCheck.is_colliding():
 		was_on_wall = 1
-	velocity = move_and_slide(velocity, Vector2.UP)
 	
-	if Input.is_action_just_pressed("left_click"):
-		var mouse_click_vector = get_global_mouse_position() - self.global_position
-		velocity = 350 * mouse_click_vector.normalized()
-		state = DASH
-		dashTimer.start(0.25)
+	input_dash(input_vector)
+	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	if can_jump():
 		input_jump(delta)
@@ -123,6 +132,7 @@ func climb_state(input_vector):
 
 func dash_state():
 	velocity = move_and_slide(velocity, Vector2.UP)
+	buffer_jump(1.0)
 
 func player_die():
 	SoundPlayer.play_sound(SoundPlayer.HURT)
@@ -143,15 +153,27 @@ func can_jump():
 func reset_double_jumps():
 	double_jump_count = moveConfig.DOUBLE_JUMPS
 
+func reset_actions():
+	action_count = moveConfig.ACTION_COUNT
+
+func input_dash(input_vector):
+	if Input.is_action_just_pressed("action") and action_count > 0:
+		velocity = 350 * input_vector.normalized()
+		if is_on_floor():
+			dash_coyote_jump = true
+		state = DASH
+		action_count -= 1
+		dashTimer.start(0.25)
+
 func input_jump(delta):
-	if Input.is_action_just_pressed("ui_up") or buffered_jump:
+	if Input.is_action_just_pressed("jump") or buffered_jump:
 		buffered_jump = false
 		coyote_jump = false
 		velocity.y = moveConfig.JUMP_FORCE
 		velocity.x = ((global_position - old_pos)/delta).x
 
 func input_wall_jump(delta, direction):
-	if Input.is_action_just_pressed("ui_up") or buffered_jump:
+	if Input.is_action_just_pressed("jump") or buffered_jump:
 		buffered_jump = false
 		coyote_jump = false
 		wall_coyote_jump = 0
@@ -161,19 +183,19 @@ func input_wall_jump(delta, direction):
 	return false
 
 func input_jump_release():
-	if Input.is_action_just_released("ui_up") \
+	if Input.is_action_just_released("jump") \
 			and velocity.y < moveConfig.JUMP_RELEASE_FORCE:
 		velocity.y = velocity.y * .5
 
 func input_double_jump():
-	if Input.is_action_just_pressed("ui_up") and double_jump_count > 0:
+	if Input.is_action_just_pressed("jump") and double_jump_count > 0:
 		velocity.y = moveConfig.JUMP_FORCE
 		double_jump_count -= 1
 
-func buffer_jump():
-	if Input.is_action_just_pressed("ui_up"):
+func buffer_jump(buffer_time=0.1):
+	if Input.is_action_just_pressed("jump"):
 		buffered_jump = true
-		jumpBufferTimer.start()
+		jumpBufferTimer.start(buffer_time)
 
 func apply_gravity():
 	if velocity.y > 0:
@@ -232,6 +254,11 @@ func _on_WallCoyoteJumpTimer_timeout():
 
 func _on_DashTimer_timeout():
 	state = MOVE
-	velocity.y = 0
-	var x_sign = sign(velocity.x)
-	velocity.x = min(abs(velocity.x), moveConfig.MAX_AIR_SPEED) * x_sign
+	velocity.y = velocity.y * 0.2
+	if dash_coyote_jump:
+		coyote_jump = true
+		coyoteJumpTimer.start()
+	else:
+		var x_sign = sign(velocity.x)
+		velocity.x = min(abs(velocity.x), moveConfig.MAX_AIR_SPEED) * x_sign * 1.2
+	dash_coyote_jump = false

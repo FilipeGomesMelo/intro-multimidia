@@ -15,6 +15,7 @@ export(float) var FRICTION = 10
 export(float) var MAX_FALL_SPEED = 300
 export(float) var CLIMB_SPEED = 50
 export(int) var DOUBLE_JUMPS = 1
+export(int) var ACTION_COUNT = 1
 
 export(float) var WALL_SLIDE_GRAVITY = 2.5
 export(float) var MAX_WALL_SLIDE_SPEED = 150
