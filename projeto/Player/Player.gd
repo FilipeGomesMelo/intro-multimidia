@@ -3,7 +3,8 @@ class_name Player
 
 enum {
 	MOVE,
-	CLIMB
+	CLIMB,
+	DASH
 }
 
 export(Resource) var moveConfig = \
@@ -21,6 +22,7 @@ onready var animatedSprite: = $AnimatedSprite
 onready var ladderCheck: = $LadderCheck
 onready var jumpBufferTimer: = $BufferJumpTimer
 onready var coyoteJumpTimer: = $CoyoteJumpTimer
+onready var dashTimer: = $DashTimer
 onready var wallCoyoteJumpTimer: = $WallCoyoteJumpTimer
 onready var remoteTransform2D: = $RemoteTransform2D
 onready var leftWallCheck: = $LeftWallCheck
@@ -31,7 +33,7 @@ var old_pos = Vector2.ZERO
 func _ready():
 	animatedSprite.frames = load("res://Player/Resources/PlayerGreeSkin.tres")
 
-func _physics_process(delta):	
+func _physics_process(delta):
 	var input_vector = Vector2.ZERO
 	input_vector.x = Input.get_axis("ui_left", "ui_right")
 	input_vector.y = Input.get_axis("ui_up", "ui_down")
@@ -39,6 +41,7 @@ func _physics_process(delta):
 	match state:
 		MOVE: move_state(input_vector, delta)
 		CLIMB: climb_state(input_vector)
+		DASH: dash_state()
 	old_pos = global_position
 
 func move_state(input_vector, delta):
@@ -69,6 +72,12 @@ func move_state(input_vector, delta):
 	elif rightWallCheck.is_colliding():
 		was_on_wall = 1
 	velocity = move_and_slide(velocity, Vector2.UP)
+	
+	if Input.is_action_just_pressed("left_click"):
+		var mouse_click_vector = get_global_mouse_position() - self.global_position
+		velocity = 350 * mouse_click_vector.normalized()
+		state = DASH
+		dashTimer.start(0.25)
 	
 	if can_jump():
 		input_jump(delta)
@@ -110,6 +119,9 @@ func climb_state(input_vector):
 		animatedSprite.animation = "Idle"
 	
 	velocity = input_vector * moveConfig.CLIMB_SPEED
+	velocity = move_and_slide(velocity, Vector2.UP)
+
+func dash_state():
 	velocity = move_and_slide(velocity, Vector2.UP)
 
 func player_die():
@@ -217,3 +229,9 @@ func _on_CoyoteJumpTimer_timeout():
 
 func _on_WallCoyoteJumpTimer_timeout():
 	wall_coyote_jump = 0
+
+func _on_DashTimer_timeout():
+	state = MOVE
+	velocity.y = 0
+	var x_sign = sign(velocity.x)
+	velocity.x = min(abs(velocity.x), moveConfig.MAX_AIR_SPEED) * x_sign

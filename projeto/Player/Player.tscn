@@ -29,6 +29,9 @@ cast_to = Vector2( 0, 15 )
 collide_with_areas = true
 collide_with_bodies = false
 
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="WallCoyoteJumpTimer" type="Timer" parent="."]
 wait_time = 0.15
 one_shot = true
@@ -53,6 +56,7 @@ rotation = -1.57079
 enabled = true
 cast_to = Vector2( 0, 7 )
 
+[connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="WallCoyoteJumpTimer" to="." method="_on_WallCoyoteJumpTimer_timeout"]
 [connection signal="timeout" from="CoyoteJumpTimer" to="." method="_on_CoyoteJumpTimer_timeout"]
 [connection signal="timeout" from="BufferJumpTimer" to="." method="_on_JumpBufferTimer_timeout"]
