@@ -131,8 +131,11 @@ func climb_state(input_vector):
 	velocity = move_and_slide(velocity, Vector2.UP)
 
 func dash_state():
+	animatedSprite.animation = "Jump"
 	velocity = move_and_slide(velocity, Vector2.UP)
-	buffer_jump(1.0)
+	velocity = velocity.normalized() * 350
+	if Input.is_action_just_pressed("jump"):
+		buffered_jump = true
 
 func player_die():
 	SoundPlayer.play_sound(SoundPlayer.HURT)
@@ -158,12 +161,14 @@ func reset_actions():
 
 func input_dash(input_vector):
 	if Input.is_action_just_pressed("action") and action_count > 0:
+		if input_vector == Vector2.ZERO:
+			input_vector.x = 1 if animatedSprite.flip_h else -1
 		velocity = 350 * input_vector.normalized()
 		if is_on_floor():
 			dash_coyote_jump = true
 		state = DASH
 		action_count -= 1
-		dashTimer.start(0.25)
+		dashTimer.start(0.175)
 
 func input_jump(delta):
 	if Input.is_action_just_pressed("jump") or buffered_jump:
@@ -255,10 +260,12 @@ func _on_WallCoyoteJumpTimer_timeout():
 func _on_DashTimer_timeout():
 	state = MOVE
 	velocity.y = velocity.y * 0.2
+	if buffered_jump:
+		jumpBufferTimer.start()
 	if dash_coyote_jump:
 		coyote_jump = true
 		coyoteJumpTimer.start()
 	else:
 		var x_sign = sign(velocity.x)
-		velocity.x = min(abs(velocity.x), moveConfig.MAX_AIR_SPEED) * x_sign * 1.2
+		velocity.x = min(abs(velocity.x), moveConfig.MAX_AIR_SPEED) * x_sign * 1.5
 	dash_coyote_jump = false
