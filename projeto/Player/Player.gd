@@ -4,6 +4,7 @@ class_name Player
 enum {
 	MOVE,
 	CLIMB,
+	START_DASH,
 	DASH
 }
 
@@ -29,6 +30,7 @@ onready var animatedSprite: = $AnimatedSprite
 onready var ladderCheck: = $LadderCheck
 onready var jumpBufferTimer: = $BufferJumpTimer
 onready var coyoteJumpTimer: = $CoyoteJumpTimer
+onready var startDashTimer: = $StartDashTimer
 onready var dashTimer: = $DashTimer
 onready var wallCoyoteJumpTimer: = $WallCoyoteJumpTimer
 onready var remoteTransform2D: = $RemoteTransform2D
@@ -48,14 +50,17 @@ func _physics_process(delta):
 	match state:
 		MOVE: move_state(input_vector, delta)
 		CLIMB: climb_state(input_vector)
+		START_DASH: start_dash_state()
 		DASH: dash_state()
+	if Input.is_action_just_pressed("reset"):
+		self.player_die()
 	old_pos = global_position
 
 func move_state(input_vector, delta):
 	if is_on_ladder() and Input.is_action_just_pressed("ui_up"):
 		state = CLIMB
 	
-	apply_gravity()
+	apply_gravity(input_vector)
 	if input_vector.x == 0:
 		animatedSprite.animation = "Idle"
 		apply_friction()
@@ -72,18 +77,18 @@ func move_state(input_vector, delta):
 	else:
 		animatedSprite.animation = "Jump"
 	
-	if is_on_wall():
-		if reset_jump_on_wall:
-			reset_double_jumps()
-		if reset_action_on_wall:
-			reset_actions()
-	
 	var was_on_floor = is_on_floor()
 	var was_on_wall = 0
 	if leftWallCheck.is_colliding():
 		was_on_wall = -1
 	elif rightWallCheck.is_colliding():
 		was_on_wall = 1
+	
+	if is_on_wall():
+		if reset_jump_on_wall:
+			reset_double_jumps()
+		if reset_action_on_wall:
+			reset_actions()
 	
 	input_dash(input_vector)
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -130,6 +135,9 @@ func climb_state(input_vector):
 	velocity = input_vector * moveConfig.CLIMB_SPEED
 	velocity = move_and_slide(velocity, Vector2.UP)
 
+func start_dash_state():
+	move_and_slide(Vector2.ZERO, Vector2.UP)
+
 func dash_state():
 	animatedSprite.animation = "Jump"
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -166,9 +174,9 @@ func input_dash(input_vector):
 		velocity = 350 * input_vector.normalized()
 		if is_on_floor():
 			dash_coyote_jump = true
-		state = DASH
+		state = START_DASH
+		startDashTimer.start()
 		action_count -= 1
-		dashTimer.start(0.175)
 
 func input_jump(delta):
 	if Input.is_action_just_pressed("jump") or buffered_jump:
@@ -184,6 +192,7 @@ func input_wall_jump(delta, direction):
 		wall_coyote_jump = 0
 		velocity.y = moveConfig.WALL_JUMP_V_FORCE
 		velocity.x = moveConfig.WALL_JUMP_H_FORCE * direction
+		animatedSprite.flip_h = direction > 0
 		return true
 	return false
 
@@ -202,16 +211,16 @@ func buffer_jump(buffer_time=0.1):
 		buffered_jump = true
 		jumpBufferTimer.start(buffer_time)
 
-func apply_gravity():
+func apply_gravity(input_vector):
 	if velocity.y > 0:
-		if not is_on_wall():
+		if is_on_wall() and input_vector.x != 0:
+			velocity.y += moveConfig.WALL_SLIDE_GRAVITY
+		else:
 			velocity.y += moveConfig.BASE_GRAVITY \
 				+ moveConfig.ADDITIONAL_FALLING_GRAVITY
-		else:
-			velocity.y += moveConfig.WALL_SLIDE_GRAVITY
 	else:
 		velocity.y += moveConfig.BASE_GRAVITY
-	if is_on_wall():
+	if is_on_wall() and input_vector.x != 0:
 		velocity.y = min(velocity.y, moveConfig.MAX_WALL_SLIDE_SPEED)
 	else:
 		velocity.y = min(velocity.y, moveConfig.MAX_FALL_SPEED)
@@ -269,3 +278,9 @@ func _on_DashTimer_timeout():
 		var x_sign = sign(velocity.x)
 		velocity.x = min(abs(velocity.x), moveConfig.MAX_AIR_SPEED) * x_sign * 1.5
 	dash_coyote_jump = false
+
+
+func _on_StartDashTimer_timeout():
+	state = DASH
+	dashTimer.start()
+	Events.emit_signal("dash_started")

@@ -13,6 +13,7 @@ func _ready():
 	player.connect_camera(camera)
 	player_spawn_location = player.global_position
 	Events.connect("player_died", self, "_on_player_died")
+	Events.connect("dash_started", self, "_on_dash_started")
 
 func _on_player_died():
 	timer.start(0.25)
@@ -21,3 +22,6 @@ func _on_player_died():
 	player.global_position = player_spawn_location
 	add_child(player)
 	player.connect_camera(camera)
+
+func _on_dash_started():
+	camera.shake(0.125, 1)
