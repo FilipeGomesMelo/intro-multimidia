@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://World/TileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://World/Ladder.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Enemies/MovingSpikeEnemy.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Enemies/StompEnemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Items/apple.tscn" type="PackedScene" id=9]
+[ext_resource path="res://World/FallingPlatform.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -54,6 +56,26 @@ position = Vector2( 171, 126 )
 
 [node name="Spikes3" parent="TileMap" instance=ExtResource( 3 )]
 position = Vector2( 189, 126 )
+
+[node name="fruits" type="Node2D" parent="TileMap"]
+position = Vector2( 297, -152 )
+
+[node name="apple" parent="TileMap/fruits" instance=ExtResource( 9 )]
+
+[node name="apple2" parent="TileMap/fruits" instance=ExtResource( 9 )]
+position = Vector2( 137, 197 )
+
+[node name="apple3" parent="TileMap/fruits" instance=ExtResource( 9 )]
+position = Vector2( -253, 252 )
+
+[node name="FruitsLayer" type="CanvasLayer" parent="TileMap"]
+
+[node name="CountFruits" type="Label" parent="TileMap/FruitsLayer"]
+margin_right = 47.0
+margin_bottom = 14.0
+
+[node name="FallingPlatform" parent="." instance=ExtResource( 10 )]
+position = Vector2( 233, -83 )
 
 [node name="MovingSpikeEnemy" parent="." instance=ExtResource( 7 )]
 position = Vector2( -18, -18 )
