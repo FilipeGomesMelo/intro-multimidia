@@ -7,7 +7,7 @@
 [ext_resource path="res://porta.tscn" type="PackedScene" id=5]
 [ext_resource path="res://World/Spikes.tscn" type="PackedScene" id=6]
 
-[node name="Level7" instance=ExtResource( 1 )]
+[node name="Level8" instance=ExtResource( 1 )]
 
 [node name="Player" parent="." index="0"]
 position = Vector2( -45, 78 )
