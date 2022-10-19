@@ -31,6 +31,7 @@ script = ExtResource( 2 )
 position = Vector2( 1, -12 )
 frames = SubResource( 3 )
 animation = "Walking"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

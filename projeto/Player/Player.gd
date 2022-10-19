@@ -139,6 +139,7 @@ func start_dash_state():
 	move_and_slide(Vector2.ZERO, Vector2.UP)
 
 func dash_state():
+	SoundPlayer.play_sound(SoundPlayer.DASHE)
 	animatedSprite.animation = "Jump"
 	velocity = move_and_slide(velocity, Vector2.UP)
 	velocity = velocity.normalized() * 350
@@ -184,6 +185,7 @@ func input_jump(delta):
 		coyote_jump = false
 		velocity.y = moveConfig.JUMP_FORCE
 		velocity.x = ((global_position - old_pos)/delta).x
+		SoundPlayer.play_sound(SoundPlayer.PULAR)
 
 func input_wall_jump(delta, direction):
 	if Input.is_action_just_pressed("jump") or buffered_jump:

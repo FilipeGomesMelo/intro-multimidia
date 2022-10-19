@@ -25,3 +25,4 @@ func _on_player_died():
 
 func _on_dash_started():
 	camera.shake(0.125, 1)
+
