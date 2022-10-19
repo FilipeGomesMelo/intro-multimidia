@@ -39,3 +39,10 @@ func _on_timer_timeout():
 	collision_layer = temp
 	is_triggered = false
 	anim.play("on")
+
+
+func _on_BounceBox_body_entered(body):
+	if body is Player:
+		is_triggered = true
+		anim.play("shake")
+		velocity = Vector2.ZERO

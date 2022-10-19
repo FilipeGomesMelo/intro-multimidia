@@ -10,7 +10,7 @@
 [ext_resource path="res://porta.tscn" type="PackedScene" id=8]
 [ext_resource path="res://World/Spring.tscn" type="PackedScene" id=9]
 [ext_resource path="res://World/collectable.tscn" type="PackedScene" id=10]
-[ext_resource path="res://items/apple.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Items/apple.tscn" type="PackedScene" id=11]
 [ext_resource path="res://World/FallingPlatform.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Curve2D" id=1]

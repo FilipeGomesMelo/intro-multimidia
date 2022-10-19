@@ -20,6 +20,7 @@ func _on_player_died():
 		if child is Player:
 			child.queue_free()
 	timer.start(0.5)
+	yield(timer, "timeout")
 	var player = PlayerScene.instance()
 	player.global_position = player_spawn_location
 	add_child(player)
