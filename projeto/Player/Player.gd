@@ -63,6 +63,11 @@ func _physics_process(delta):
 		self.player_die()
 	old_pos = global_position
 
+	for platforms in get_slide_count():
+		var collision = get_slide_collision(platforms)
+		if collision.collider.has_method("collide_with"):
+			collision.collider.collide_with(collision, self)
+
 func move_state(input_vector, delta):
 	if is_on_ladder() and Input.is_action_just_pressed("ui_up"):
 		state = CLIMB
@@ -182,6 +187,7 @@ func player_die():
 	SoundPlayer.play_sound(SoundPlayer.HURT)
 	queue_free()
 	Events.emit_signal("player_died")
+	Events.reset_fruit()
 
 func connect_camera(camera: Camera2D):
 	var camera_path = camera.get_path()
