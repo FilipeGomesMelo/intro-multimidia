@@ -1,0 +1,241 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://levels/Level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://World/TileMap.tscn" type="PackedScene" id=2]
+[ext_resource path="res://World/collectable.tscn" type="PackedScene" id=3]
+[ext_resource path="res://porta.tscn" type="PackedScene" id=5]
+[ext_resource path="res://World/Spikes.tscn" type="PackedScene" id=6]
+
+[node name="Level7" instance=ExtResource( 1 )]
+
+[node name="Player" parent="." index="0"]
+position = Vector2( -45, 78 )
+
+[node name="TileMap" parent="." index="3" instance=ExtResource( 2 )]
+tile_data = PoolIntArray( -720904, 0, 0, -720903, 0, 0, -720902, 0, 0, -720901, 0, 0, -720900, 0, 0, -720899, 0, 0, -720898, 0, 0, -720897, 0, 0, -786432, 0, 0, -786431, 0, 0, -786430, 0, 0, -786429, 0, 0, -786428, 0, 0, -786427, 0, 0, -786426, 0, 0, -786425, 0, 0, -786424, 0, 0, -786423, 0, 0, -655368, 0, 0, -720888, 0, 0, -720887, 0, 0, -589832, 0, 0, -655352, 0, 0, -655351, 0, 0, -524296, 0, 0, -589816, 0, 0, -589815, 0, 0, -458760, 0, 0, -458759, 0, 0, -524285, 0, 0, -524284, 0, 0, -524280, 0, 0, -524279, 0, 0, -393224, 0, 0, -393223, 0, 0, -458749, 0, 0, -458748, 0, 0, -458744, 0, 0, -458743, 0, 0, -327688, 0, 0, -327687, 0, 0, -393213, 0, 0, -393212, 0, 0, -393208, 0, 0, -393207, 0, 0, -262152, 0, 0, -262151, 0, 0, -262150, 0, 0, -262149, 0, 0, -262148, 0, 0, -262147, 0, 0, -262146, 0, 0, -262145, 0, 0, -327680, 0, 0, -327679, 0, 0, -327678, 0, 0, -327677, 0, 0, -327676, 0, 0, -327672, 0, 0, -327671, 0, 0, -196616, 0, 0, -196615, 0, 0, -196614, 0, 0, -196613, 0, 0, -262135, 0, 0, -131080, 0, 0, -131079, 0, 0, -131078, 0, 0, -131077, 0, 0, -131075, 0, 0, -196605, 0, 0, -196599, 0, 0, -65544, 0, 0, -65543, 0, 0, -65542, 0, 0, -65541, 0, 0, -131063, 0, 0, -8, 0, 0, -7, 0, 0, -6, 0, 0, -5, 0, 0, -65536, 0, 0, -65527, 0, 0, 65528, 0, 0, 65529, 0, 0, 65530, 0, 0, 65531, 0, 0, 9, 0, 0, 131064, 0, 0, 131065, 0, 0, 131066, 0, 0, 131067, 0, 0, 131069, 0, 0, 65539, 0, 0, 65545, 0, 0, 196600, 0, 0, 196601, 0, 0, 196602, 0, 0, 196603, 0, 0, 131078, 0, 0, 131081, 0, 0, 262136, 0, 0, 262137, 0, 0, 262138, 0, 0, 262139, 0, 0, 196608, 0, 0, 196617, 0, 0, 327672, 0, 0, 327673, 0, 0, 327674, 0, 0, 327675, 0, 0, 262153, 0, 0, 393208, 0, 0, 393209, 0, 0, 393210, 0, 0, 393211, 0, 0, 393212, 0, 0, 393213, 0, 0, 327683, 0, 0, 327689, 0, 0, 458744, 0, 0, 458745, 0, 0, 458746, 0, 0, 458747, 0, 0, 458748, 0, 0, 458749, 0, 0, 393219, 0, 0, 393225, 0, 0, 524280, 0, 0, 524281, 0, 0, 524282, 0, 0, 524283, 0, 0, 524284, 0, 0, 524285, 0, 0, 458755, 0, 0, 458761, 0, 0, 589816, 0, 0, 589817, 0, 0, 589818, 0, 0, 589819, 0, 0, 589820, 0, 0, 589821, 0, 0, 524291, 0, 0, 524297, 0, 0, 655352, 0, 0, 655353, 0, 0, 655354, 0, 0, 655355, 0, 0, 655356, 0, 0, 655357, 0, 0, 655358, 0, 0, 655359, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0 )
+
+[node name="Spikes" parent="TileMap" index="0" instance=ExtResource( 6 )]
+position = Vector2( 9, 54 )
+
+[node name="Spikes2" parent="TileMap" index="1" instance=ExtResource( 6 )]
+position = Vector2( 18, 63 )
+rotation = 1.57079
+
+[node name="Spikes3" parent="TileMap" index="2" instance=ExtResource( 6 )]
+position = Vector2( 0, 63 )
+rotation = -1.57079
+
+[node name="Spikes4" parent="TileMap" index="3" instance=ExtResource( 6 )]
+position = Vector2( -45, 18 )
+
+[node name="Spikes19" parent="TileMap" index="4" instance=ExtResource( 6 )]
+position = Vector2( -9, -90 )
+
+[node name="Spikes23" parent="TileMap" index="5" instance=ExtResource( 6 )]
+position = Vector2( -27, -90 )
+
+[node name="Spikes24" parent="TileMap" index="6" instance=ExtResource( 6 )]
+position = Vector2( -45, -90 )
+
+[node name="Spikes59" parent="TileMap" index="7" instance=ExtResource( 6 )]
+position = Vector2( -63, -90 )
+
+[node name="Spikes60" parent="TileMap" index="8" instance=ExtResource( 6 )]
+position = Vector2( -81, -90 )
+
+[node name="Spikes61" parent="TileMap" index="9" instance=ExtResource( 6 )]
+position = Vector2( -99, -90 )
+
+[node name="Spikes20" parent="TileMap" index="10" instance=ExtResource( 6 )]
+position = Vector2( 9, -90 )
+
+[node name="Spikes21" parent="TileMap" index="11" instance=ExtResource( 6 )]
+position = Vector2( 27, -90 )
+
+[node name="Spikes22" parent="TileMap" index="12" instance=ExtResource( 6 )]
+position = Vector2( 45, -90 )
+
+[node name="Spikes25" parent="TileMap" index="13" instance=ExtResource( 6 )]
+position = Vector2( 63, -144 )
+
+[node name="Spikes26" parent="TileMap" index="14" instance=ExtResource( 6 )]
+position = Vector2( 81, -144 )
+
+[node name="Spikes5" parent="TileMap" index="15" instance=ExtResource( 6 )]
+position = Vector2( -36, 27 )
+rotation = 1.57079
+
+[node name="Spikes7" parent="TileMap" index="16" instance=ExtResource( 6 )]
+position = Vector2( -45, 36 )
+rotation = 3.14159
+
+[node name="Spikes6" parent="TileMap" index="17" instance=ExtResource( 6 )]
+position = Vector2( -54, 27 )
+rotation = -1.57079
+
+[node name="Spikes8" parent="TileMap" index="18" instance=ExtResource( 6 )]
+position = Vector2( 63, 18 )
+
+[node name="Spikes9" parent="TileMap" index="19" instance=ExtResource( 6 )]
+position = Vector2( 72, 27 )
+rotation = 1.57079
+
+[node name="Spikes17" parent="TileMap" index="20" instance=ExtResource( 6 )]
+position = Vector2( 108, 45 )
+rotation = -1.57079
+
+[node name="Spikes10" parent="TileMap" index="21" instance=ExtResource( 6 )]
+position = Vector2( 63, 36 )
+rotation = 3.14159
+
+[node name="Spikes15" parent="TileMap" index="22" instance=ExtResource( 6 )]
+position = Vector2( 117, 54 )
+rotation = 3.14159
+
+[node name="Spikes16" parent="TileMap" index="23" instance=ExtResource( 6 )]
+position = Vector2( 126, 45 )
+rotation = 1.57079
+
+[node name="Spikes18" parent="TileMap" index="24" instance=ExtResource( 6 )]
+position = Vector2( 162, 45 )
+rotation = 4.71238
+
+[node name="Spikes11" parent="TileMap" index="25" instance=ExtResource( 6 )]
+position = Vector2( 54, 27 )
+rotation = -1.57079
+
+[node name="Spikes51" parent="TileMap" index="26" instance=ExtResource( 6 )]
+position = Vector2( 63, -54 )
+
+[node name="Spikes52" parent="TileMap" index="27" instance=ExtResource( 6 )]
+position = Vector2( 72, -45 )
+rotation = 1.57079
+
+[node name="Spikes53" parent="TileMap" index="28" instance=ExtResource( 6 )]
+position = Vector2( 63, -36 )
+rotation = 3.14159
+
+[node name="Spikes54" parent="TileMap" index="29" instance=ExtResource( 6 )]
+position = Vector2( 54, -45 )
+rotation = -1.57079
+
+[node name="Spikes55" parent="TileMap" index="30" instance=ExtResource( 6 )]
+position = Vector2( -45, -54 )
+
+[node name="Spikes56" parent="TileMap" index="31" instance=ExtResource( 6 )]
+position = Vector2( -36, -45 )
+rotation = 1.57079
+
+[node name="Spikes57" parent="TileMap" index="32" instance=ExtResource( 6 )]
+position = Vector2( -45, -36 )
+rotation = 3.14159
+
+[node name="Spikes58" parent="TileMap" index="33" instance=ExtResource( 6 )]
+position = Vector2( -54, -45 )
+rotation = -1.57079
+
+[node name="Spikes47" parent="TileMap" index="34" instance=ExtResource( 6 )]
+position = Vector2( 9, -18 )
+
+[node name="Spikes48" parent="TileMap" index="35" instance=ExtResource( 6 )]
+position = Vector2( 18, -9 )
+rotation = 1.57079
+
+[node name="Spikes49" parent="TileMap" index="36" instance=ExtResource( 6 )]
+position = Vector2( 9, 0 )
+rotation = 3.14159
+
+[node name="Spikes50" parent="TileMap" index="37" instance=ExtResource( 6 )]
+position = Vector2( 0, -9 )
+rotation = -1.57079
+
+[node name="Spikes12" parent="TileMap" index="38" instance=ExtResource( 6 )]
+position = Vector2( 63, 90 )
+
+[node name="Spikes13" parent="TileMap" index="39" instance=ExtResource( 6 )]
+position = Vector2( 54, 117 )
+rotation = -1.57079
+
+[node name="Spikes14" parent="TileMap" index="40" instance=ExtResource( 6 )]
+position = Vector2( 54, 99 )
+rotation = -1.57079
+
+[node name="Spikes27" parent="TileMap" index="41" instance=ExtResource( 6 )]
+position = Vector2( 54, 153 )
+rotation = -1.57079
+
+[node name="Spikes29" parent="TileMap" index="42" instance=ExtResource( 6 )]
+position = Vector2( -27, 162 )
+
+[node name="Spikes30" parent="TileMap" index="43" instance=ExtResource( 6 )]
+position = Vector2( -9, 162 )
+
+[node name="Spikes31" parent="TileMap" index="44" instance=ExtResource( 6 )]
+position = Vector2( 9, 162 )
+
+[node name="Spikes32" parent="TileMap" index="45" instance=ExtResource( 6 )]
+position = Vector2( 27, 162 )
+
+[node name="Spikes33" parent="TileMap" index="46" instance=ExtResource( 6 )]
+position = Vector2( 45, 162 )
+
+[node name="Spikes28" parent="TileMap" index="47" instance=ExtResource( 6 )]
+position = Vector2( 54, 135 )
+rotation = -1.57079
+
+[node name="Spikes37" parent="TileMap" index="48" instance=ExtResource( 6 )]
+position = Vector2( 162, 135 )
+rotation = -1.57079
+
+[node name="Spikes45" parent="TileMap" index="49" instance=ExtResource( 6 )]
+position = Vector2( 162, 117 )
+rotation = -1.57079
+
+[node name="Spikes46" parent="TileMap" index="50" instance=ExtResource( 6 )]
+position = Vector2( 162, 153 )
+rotation = -1.57079
+
+[node name="Spikes38" parent="TileMap" index="51" instance=ExtResource( 6 )]
+position = Vector2( 72, 153 )
+rotation = 1.57079
+
+[node name="Spikes40" parent="TileMap" index="52" instance=ExtResource( 6 )]
+position = Vector2( 81, 162 )
+
+[node name="Spikes41" parent="TileMap" index="53" instance=ExtResource( 6 )]
+position = Vector2( 99, 162 )
+
+[node name="Spikes42" parent="TileMap" index="54" instance=ExtResource( 6 )]
+position = Vector2( 117, 162 )
+
+[node name="Spikes43" parent="TileMap" index="55" instance=ExtResource( 6 )]
+position = Vector2( 135, 162 )
+
+[node name="Spikes44" parent="TileMap" index="56" instance=ExtResource( 6 )]
+position = Vector2( 153, 162 )
+
+[node name="Spikes39" parent="TileMap" index="57" instance=ExtResource( 6 )]
+position = Vector2( 72, 135 )
+rotation = 1.57079
+
+[node name="Spikes34" parent="TileMap" index="58" instance=ExtResource( 6 )]
+position = Vector2( -36, 126 )
+rotation = -4.71238
+
+[node name="Spikes35" parent="TileMap" index="59" instance=ExtResource( 6 )]
+position = Vector2( -36, 108 )
+rotation = -4.71238
+
+[node name="Spikes36" parent="TileMap" index="60" instance=ExtResource( 6 )]
+position = Vector2( -36, 144 )
+rotation = -4.71238
+
+[node name="Collectable" parent="." index="4" instance=ExtResource( 3 )]
+position = Vector2( 117, 90 )
+
+[node name="Collectable3" parent="." index="5" instance=ExtResource( 3 )]
+position = Vector2( -27, -135 )
+
+[node name="porta" parent="." index="6" instance=ExtResource( 5 )]
+position = Vector2( -118, -144 )
+target_level_path = "res://levels/Level10.tscn"

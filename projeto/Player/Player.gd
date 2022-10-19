@@ -12,6 +12,8 @@ export(Resource) var moveConfig = \
 	preload("res://Player/Resources/DefaultPlayerMovementConfig.tres") \
 		as PlayerMovementConfig
 
+var ghost_scene = preload("res://Player/DashGosth.tscn")
+
 export(bool) var reset_jump_on_ground = true
 export(bool) var reset_jump_on_wall = true
 export(bool) var reset_action_on_ground = true
@@ -32,10 +34,15 @@ onready var jumpBufferTimer: = $BufferJumpTimer
 onready var coyoteJumpTimer: = $CoyoteJumpTimer
 onready var startDashTimer: = $StartDashTimer
 onready var dashTimer: = $DashTimer
+onready var ghostTimer: = $GhostTimer
+onready var ghostStopTimer: = $GhostStopTimer
 onready var wallCoyoteJumpTimer: = $WallCoyoteJumpTimer
+onready var wallJumpTimer: = $WallJumpTimer
 onready var remoteTransform2D: = $RemoteTransform2D
 onready var leftWallCheck: = $LeftWallCheck
 onready var rightWallCheck: = $RightWallCheck
+onready var leftWallCheck2: = $LeftWallCheck2
+onready var rightWallCheck2: = $RightWallCheck2
 
 var old_pos = Vector2.ZERO
 
@@ -63,11 +70,13 @@ func move_state(input_vector, delta):
 	apply_gravity(input_vector)
 	if input_vector.x == 0:
 		animatedSprite.animation = "Idle"
-		apply_friction()
+		if wallJumpTimer.time_left == 0:
+			apply_friction()
 	else:
 		animatedSprite.animation = "Run"
-		animatedSprite.flip_h = input_vector.x > 0
-		apply_acceleration(input_vector.x)
+		if wallJumpTimer.time_left == 0:
+			animatedSprite.flip_h = input_vector.x > 0
+			apply_acceleration(input_vector.x)
 	
 	if is_on_floor():
 		if reset_jump_on_ground:
@@ -79,9 +88,9 @@ func move_state(input_vector, delta):
 	
 	var was_on_floor = is_on_floor()
 	var was_on_wall = 0
-	if leftWallCheck.is_colliding():
+	if leftWallCheck.is_colliding() or leftWallCheck2.is_colliding():
 		was_on_wall = -1
-	elif rightWallCheck.is_colliding():
+	elif rightWallCheck.is_colliding() or rightWallCheck2.is_colliding():
 		was_on_wall = 1
 	
 	if is_on_wall():
@@ -96,10 +105,10 @@ func move_state(input_vector, delta):
 	if can_jump():
 		input_jump(delta)
 	else:
-		if leftWallCheck.is_colliding() or wall_coyote_jump == -1:
+		if leftWallCheck.is_colliding() or leftWallCheck2.is_colliding() or wall_coyote_jump == -1:
 			if input_wall_jump(delta, 1):
 				was_on_wall = 0
-		elif rightWallCheck.is_colliding() or wall_coyote_jump == 1:
+		elif rightWallCheck.is_colliding() or rightWallCheck2.is_colliding() or wall_coyote_jump == 1:
 			if input_wall_jump(delta, -1):
 				was_on_wall = 0
 		else:
@@ -137,6 +146,14 @@ func climb_state(input_vector):
 
 func start_dash_state():
 	move_and_slide(Vector2.ZERO, Vector2.UP)
+	ghostTimer.start()
+	ghostStopTimer.start()
+	if is_on_floor():
+		dash_coyote_jump = true
+		if reset_jump_on_ground:
+			reset_double_jumps()
+		if reset_action_on_ground:
+			reset_actions()
 
 func dash_state():
 	animatedSprite.animation = "Jump"
@@ -144,6 +161,22 @@ func dash_state():
 	velocity = velocity.normalized() * 350
 	if Input.is_action_just_pressed("jump"):
 		buffered_jump = true
+	if is_on_floor():
+		dash_coyote_jump = true
+		if reset_jump_on_ground:
+			reset_double_jumps()
+		if reset_action_on_ground:
+			reset_actions()
+		
+
+func instance_ghost():
+	var ghost: Sprite = ghost_scene.instance()
+	ghost.global_position = global_position
+	ghost.texture = animatedSprite.frames.get_frame(
+			animatedSprite.animation,
+			animatedSprite.frame)
+	ghost.flip_h = animatedSprite.flip_h
+	get_parent().add_child(ghost)
 
 func player_die():
 	SoundPlayer.play_sound(SoundPlayer.HURT)
@@ -193,6 +226,7 @@ func input_wall_jump(delta, direction):
 		velocity.y = moveConfig.WALL_JUMP_V_FORCE
 		velocity.x = moveConfig.WALL_JUMP_H_FORCE * direction
 		animatedSprite.flip_h = direction > 0
+		wallJumpTimer.start()
 		return true
 	return false
 
@@ -268,7 +302,7 @@ func _on_WallCoyoteJumpTimer_timeout():
 
 func _on_DashTimer_timeout():
 	state = MOVE
-	velocity.y = velocity.y * 0.2
+	velocity.y = velocity.y * 0.5
 	if buffered_jump:
 		jumpBufferTimer.start()
 	if dash_coyote_jump:
@@ -276,7 +310,8 @@ func _on_DashTimer_timeout():
 		coyoteJumpTimer.start()
 	else:
 		var x_sign = sign(velocity.x)
-		velocity.x = min(abs(velocity.x), moveConfig.MAX_AIR_SPEED) * x_sign * 1.5
+		velocity.x = min(abs(velocity.x), moveConfig.MAX_AIR_SPEED) \
+			* x_sign * 2
 	dash_coyote_jump = false
 
 
@@ -284,3 +319,11 @@ func _on_StartDashTimer_timeout():
 	state = DASH
 	dashTimer.start()
 	Events.emit_signal("dash_started")
+
+
+func _on_GhostTimer_timeout():
+	instance_ghost()
+
+
+func _on_GhostStopTimer_timeout():
+	ghostTimer.stop()

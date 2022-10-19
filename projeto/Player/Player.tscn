@@ -1,45 +1,83 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player/Resources/PlayerGreeSkin.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Player/Resources/FastPlayerMovementConfig.tres" type="Resource" id=3]
 
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform bool whiten = false;
+uniform float min_weight = 1.0;
+
+void fragment() {
+	vec4 texture_color = texture(TEXTURE, UV);
+	if (whiten) {
+		vec3 white = vec3(1, 1, 1);
+		vec3 whitened_texture_rgb = mix(texture_color.rgb, white, min_weight);
+		COLOR = vec4(whitened_texture_rgb, texture_color.a);
+	} else {
+		COLOR = texture_color;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/whiten = false
+shader_param/min_weight = 0.9
+
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 6, 8.5 )
+extents = Vector2( 6, 8 )
 
 [node name="Player" type="KinematicBody2D"]
+position = Vector2( 1, 0 )
 z_index = 10
 collision_layer = 2
 script = ExtResource( 2 )
 moveConfig = ExtResource( 3 )
+reset_action_on_wall = false
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 4 )
 frames = ExtResource( 1 )
-animation = "Jump"
+animation = "Idle"
 playing = true
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 3.5 )
+position = Vector2( 0, 4 )
 shape = SubResource( 3 )
 
 [node name="LadderCheck" type="RayCast2D" parent="."]
+visible = false
 position = Vector2( 0, -4 )
 enabled = true
 cast_to = Vector2( 0, 15 )
 collide_with_areas = true
 collide_with_bodies = false
 
+[node name="GhostStopTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="GhostTimer" type="Timer" parent="."]
+wait_time = 0.05
+
 [node name="StartDashTimer" type="Timer" parent="."]
 wait_time = 0.05
 one_shot = true
 
 [node name="DashTimer" type="Timer" parent="."]
-wait_time = 0.175
+wait_time = 0.15
 one_shot = true
 
 [node name="WallCoyoteJumpTimer" type="Timer" parent="."]
 wait_time = 0.15
+one_shot = true
+
+[node name="WallJumpTimer" type="Timer" parent="."]
+wait_time = 0.175
 one_shot = true
 
 [node name="CoyoteJumpTimer" type="Timer" parent="."]
@@ -62,6 +100,20 @@ rotation = -1.57079
 enabled = true
 cast_to = Vector2( 0, 7 )
 
+[node name="LeftWallCheck2" type="RayCast2D" parent="."]
+position = Vector2( 0, 8 )
+rotation = 1.57079
+enabled = true
+cast_to = Vector2( 0, 7 )
+
+[node name="RightWallCheck2" type="RayCast2D" parent="."]
+position = Vector2( 0, 8 )
+rotation = -1.57079
+enabled = true
+cast_to = Vector2( 0, 7 )
+
+[connection signal="timeout" from="GhostStopTimer" to="." method="_on_GhostStopTimer_timeout"]
+[connection signal="timeout" from="GhostTimer" to="." method="_on_GhostTimer_timeout"]
 [connection signal="timeout" from="StartDashTimer" to="." method="_on_StartDashTimer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="WallCoyoteJumpTimer" to="." method="_on_WallCoyoteJumpTimer_timeout"]
