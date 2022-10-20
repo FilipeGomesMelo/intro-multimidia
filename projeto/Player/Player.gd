@@ -172,7 +172,6 @@ func dash_state():
 			reset_double_jumps()
 		if reset_action_on_ground:
 			reset_actions()
-		
 
 func instance_ghost():
 	var ghost: Sprite = ghost_scene.instance()
