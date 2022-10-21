@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://levels/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/TileMap.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World/Spikes.tscn" type="PackedScene" id=3]
 [ext_resource path="res://porta.tscn" type="PackedScene" id=4]
+[ext_resource path="res://items/apple.tscn" type="PackedScene" id=5]
 
 [node name="Level3" instance=ExtResource( 1 )]
 
@@ -56,3 +57,12 @@ tile_data = PoolIntArray( -524294, 0, 0, -524293, 0, 0, -524292, 0, 0, -524291, 
 [node name="porta" parent="." index="16" instance=ExtResource( 4 )]
 position = Vector2( 171, -72 )
 target_level_path = "res://levels/Level4.tscn"
+
+[node name="apple" parent="." index="18" instance=ExtResource( 5 )]
+position = Vector2( 117, -81 )
+
+[node name="apple2" parent="." index="19" instance=ExtResource( 5 )]
+position = Vector2( -29, -114 )
+
+[node name="apple3" parent="." index="20" instance=ExtResource( 5 )]
+position = Vector2( 29, -7 )

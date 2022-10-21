@@ -14,7 +14,7 @@ func _ready():
 	player_spawn_location = player.global_position
 	Events.connect("player_died", self, "_on_player_died")
 	Events.connect("dash_started", self, "_on_dash_started")
-
+	
 func _on_player_died():
 	for child in get_children():
 		if child is Player:
