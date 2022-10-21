@@ -16,11 +16,12 @@ func _ready():
 	Events.connect("dash_started", self, "_on_dash_started")
 	
 func _on_player_died():
+
+	timer.start(0.5)
+	yield(timer, "timeout")
 	for child in get_children():
 		if child is Player:
 			child.queue_free()
-	timer.start(0.5)
-	yield(timer, "timeout")
 	var player = PlayerScene.instance()
 	player.global_position = player_spawn_location
 	add_child(player)

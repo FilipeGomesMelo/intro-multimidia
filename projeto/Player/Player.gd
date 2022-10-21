@@ -179,7 +179,6 @@ func dash_state():
 			reset_double_jumps()
 		if reset_action_on_ground:
 			reset_actions()
-		
 
 func instance_ghost():
 	var ghost: Sprite = ghost_scene.instance()
@@ -220,12 +219,14 @@ func input_dash(input_vector):
 		velocity = 350 * input_vector.normalized()
 		if is_on_floor():
 			dash_coyote_jump = true
+		SoundPlayer.play_sound(SoundPlayer.DASHE)
 		state = START_DASH
 		startDashTimer.start()
 		action_count -= 1
 
 func input_jump(delta):
 	if Input.is_action_just_pressed("jump") or buffered_jump:
+		SoundPlayer.play_sound(SoundPlayer.JUMP)
 		buffered_jump = false
 		coyote_jump = false
 		velocity.y = moveConfig.JUMP_FORCE
@@ -233,6 +234,8 @@ func input_jump(delta):
 
 func input_wall_jump(delta, direction):
 	if Input.is_action_just_pressed("jump") or buffered_jump:
+		if wallJumpTimer.time_left == 0:
+			SoundPlayer.play_sound(SoundPlayer.JUMP)
 		buffered_jump = false
 		coyote_jump = false
 		wall_coyote_jump = 0
@@ -250,6 +253,7 @@ func input_jump_release():
 
 func input_double_jump():
 	if Input.is_action_just_pressed("jump") and double_jump_count > 0:
+		SoundPlayer.play_sound(SoundPlayer.JUMP)
 		velocity.y = moveConfig.JUMP_FORCE
 		double_jump_count -= 1
 
