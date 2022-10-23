@@ -9,7 +9,8 @@ enum ANIMATION_TYPE {
 export(ANIMATION_TYPE) var animation_type setget set_animation_type
 export(float) var speed = 1 setget set_speed
 
-onready	var animationPlayer = $AnimationPlayer
+
+onready var animationPlayer: = $AnimationPlayer
 
 func _ready():
 	update_animation(animationPlayer)

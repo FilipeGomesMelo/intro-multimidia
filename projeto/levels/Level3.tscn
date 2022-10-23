@@ -58,11 +58,11 @@ tile_data = PoolIntArray( -524294, 0, 0, -524293, 0, 0, -524292, 0, 0, -524291, 
 position = Vector2( 171, -72 )
 target_level_path = "res://levels/Level4.tscn"
 
-[node name="apple" parent="." index="18" instance=ExtResource( 5 )]
+[node name="apple" parent="." index="17" instance=ExtResource( 5 )]
 position = Vector2( 117, -81 )
 
-[node name="apple2" parent="." index="19" instance=ExtResource( 5 )]
+[node name="apple2" parent="." index="18" instance=ExtResource( 5 )]
 position = Vector2( -29, -114 )
 
-[node name="apple3" parent="." index="20" instance=ExtResource( 5 )]
+[node name="apple3" parent="." index="19" instance=ExtResource( 5 )]
 position = Vector2( 29, -7 )

@@ -43,13 +43,11 @@ target_level_path = "res://levels/Level3.tscn"
 [node name="FallingPlatform" parent="." index="12" instance=ExtResource( 5 )]
 position = Vector2( 90, 9 )
 
-[node name="apple" parent="." index="14" instance=ExtResource( 6 )]
+[node name="apple" parent="." index="13" instance=ExtResource( 6 )]
 position = Vector2( -26, -30 )
 
-[node name="apple2" parent="." index="15" instance=ExtResource( 6 )]
+[node name="apple2" parent="." index="14" instance=ExtResource( 6 )]
 position = Vector2( 171, -27 )
 
-[node name="apple3" parent="." index="16" instance=ExtResource( 6 )]
+[node name="apple3" parent="." index="15" instance=ExtResource( 6 )]
 position = Vector2( 24, 121 )
-
-[connection signal="script_changed" from="CanvasLayer" to="apple" method="_on_CanvasLayer_script_changed"]

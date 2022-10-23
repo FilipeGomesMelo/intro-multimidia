@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Enemies/MovingSpikeEnemy.gd" type="Script" id=1]
+
+[sub_resource type="Animation" id=6]
+resource_name = "MoveAlongPathBounce"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:unit_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.98 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "MoveAlongPathLoop"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:unit_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.9999 ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:unit_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[node name="RemotePathFollow" type="Path2D"]
+curve = null
+script = ExtResource( 1 )
+speed = 100.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../PathFollow2D")
+autoplay = "MoveAlongPathLoop"
+playback_process_mode = 0
+playback_speed = 0.239571
+anims/MoveAlongPathBounce = SubResource( 6 )
+anims/MoveAlongPathLoop = SubResource( 7 )
+anims/RESET = SubResource( 8 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+offset = 60.7794
+rotate = false
