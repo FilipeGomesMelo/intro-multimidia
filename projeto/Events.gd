@@ -9,8 +9,8 @@ func add_fruit(amount: int) -> void:
 	fruits += amount
 	update_fruits()
 
-func reset_fruit() -> void:
-	fruits = 0
+func reset_fruit(fruits_colleted_on_fase) -> void:
+	fruits = fruits - fruits_colleted_on_fase
 	update_fruits()
 
 func update_fruits() -> void:

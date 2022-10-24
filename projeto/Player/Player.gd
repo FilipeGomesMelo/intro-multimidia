@@ -26,6 +26,8 @@ var coyote_jump = false
 var dash_coyote_jump = false
 var wall_coyote_jump = 0
 
+var fruits_colleted_on_fase = 0
+
 onready var double_jump_count = moveConfig.DOUBLE_JUMPS
 onready var action_count = moveConfig.ACTION_COUNT
 onready var animatedSprite: = $AnimatedSprite
@@ -54,6 +56,10 @@ func _physics_process(delta):
 	input_vector.x = Input.get_axis("ui_left", "ui_right")
 	input_vector.y = Input.get_axis("ui_up", "ui_down")
 	
+	#fruits
+	$CanvasLayer/Label.set_text(String(Events.fruits))
+	pass
+
 	match state:
 		MOVE: move_state(input_vector, delta)
 		CLIMB: climb_state(input_vector)
@@ -67,7 +73,6 @@ func _physics_process(delta):
 		var collision = get_slide_collision(platforms)
 		if collision.collider.has_method("collide_with"):
 			collision.collider.collide_with(collision, self)
-
 func move_state(input_vector, delta):
 	if is_on_ladder() and Input.is_action_just_pressed("ui_up"):
 		state = CLIMB
@@ -97,6 +102,8 @@ func move_state(input_vector, delta):
 		was_on_wall = -1
 	elif rightWallCheck.is_colliding() or rightWallCheck2.is_colliding():
 		was_on_wall = 1
+	
+		
 	
 	if is_on_wall():
 		if reset_jump_on_wall:
@@ -186,7 +193,7 @@ func player_die():
 	SoundPlayer.play_sound(SoundPlayer.HURT)
 	queue_free()
 	Events.emit_signal("player_died")
-	Events.reset_fruit()
+	Events.reset_fruit(fruits_colleted_on_fase)
 
 func connect_camera(camera: Camera2D):
 	var camera_path = camera.get_path()
@@ -337,3 +344,8 @@ func _on_GhostTimer_timeout():
 
 func _on_GhostStopTimer_timeout():
 	ghostTimer.stop()
+
+func colletedFruit():
+	fruits_colleted_on_fase += 1
+	Events.add_fruit(1)
+	pass

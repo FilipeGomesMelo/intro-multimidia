@@ -112,6 +112,15 @@ rotation = -1.57079
 enabled = true
 cast_to = Vector2( 0, 7 )
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [connection signal="timeout" from="GhostStopTimer" to="." method="_on_GhostStopTimer_timeout"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_GhostTimer_timeout"]
 [connection signal="timeout" from="StartDashTimer" to="." method="_on_StartDashTimer_timeout"]

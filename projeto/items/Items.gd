@@ -4,6 +4,8 @@ onready var sprite: = $apple
 onready var animationPlayer: = $anim
 onready var soundPlayer = $collectedFx
 
+var fruits = 0
+
 func _ready():
 	Events.connect("player_died", self, "_on_player_died")
 
@@ -20,4 +22,4 @@ func _on_items_body_entered(body):
 		set_deferred("monitoring", false)
 		animationPlayer.play("collected")
 		soundPlayer.play()
-		Events.add_fruit(1)
+		body.colletedFruit()	
