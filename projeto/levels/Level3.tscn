@@ -9,7 +9,7 @@
 [node name="Level3" instance=ExtResource( 1 )]
 
 [node name="Player" parent="." index="0"]
-position = Vector2( -49, 79 )
+position = Vector2( -54, 90 )
 
 [node name="Spikes" parent="." index="3" instance=ExtResource( 3 )]
 position = Vector2( 45, -54 )

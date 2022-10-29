@@ -31,22 +31,23 @@ shader_param/min_weight = 0.9
 extents = Vector2( 6, 8 )
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 1, 0 )
 z_index = 10
 collision_layer = 2
 script = ExtResource( 2 )
 moveConfig = ExtResource( 3 )
 reset_action_on_wall = false
+DOUBLE_JUMP = 0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 4 )
 frames = ExtResource( 1 )
 animation = "Idle"
 playing = true
+offset = Vector2( 0, -12 )
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 4 )
+position = Vector2( 0, -8 )
 shape = SubResource( 3 )
 
 [node name="LadderCheck" type="RayCast2D" parent="."]
@@ -72,6 +73,10 @@ one_shot = true
 wait_time = 0.15
 one_shot = true
 
+[node name="DashBufferTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
 [node name="WallCoyoteJumpTimer" type="Timer" parent="."]
 wait_time = 0.15
 one_shot = true
@@ -89,25 +94,28 @@ wait_time = 0.1
 one_shot = true
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+position = Vector2( 0, -12 )
 
 [node name="LeftWallCheck" type="RayCast2D" parent="."]
+position = Vector2( 0, -12 )
 rotation = 1.57079
 enabled = true
 cast_to = Vector2( 0, 7 )
 
 [node name="RightWallCheck" type="RayCast2D" parent="."]
+position = Vector2( 0, -12 )
 rotation = -1.57079
 enabled = true
 cast_to = Vector2( 0, 7 )
 
 [node name="LeftWallCheck2" type="RayCast2D" parent="."]
-position = Vector2( 0, 8 )
+position = Vector2( 0, -4 )
 rotation = 1.57079
 enabled = true
 cast_to = Vector2( 0, 7 )
 
 [node name="RightWallCheck2" type="RayCast2D" parent="."]
-position = Vector2( 0, 8 )
+position = Vector2( 0, -4 )
 rotation = -1.57079
 enabled = true
 cast_to = Vector2( 0, 7 )
@@ -115,8 +123,9 @@ cast_to = Vector2( 0, 7 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
+margin_top = -12.0
 margin_right = 40.0
-margin_bottom = 14.0
+margin_bottom = 2.0
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -125,6 +134,7 @@ __meta__ = {
 [connection signal="timeout" from="GhostTimer" to="." method="_on_GhostTimer_timeout"]
 [connection signal="timeout" from="StartDashTimer" to="." method="_on_StartDashTimer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
+[connection signal="timeout" from="DashBufferTimer" to="." method="_on_DashBufferTimer_timeout"]
 [connection signal="timeout" from="WallCoyoteJumpTimer" to="." method="_on_WallCoyoteJumpTimer_timeout"]
 [connection signal="timeout" from="CoyoteJumpTimer" to="." method="_on_CoyoteJumpTimer_timeout"]
 [connection signal="timeout" from="BufferJumpTimer" to="." method="_on_JumpBufferTimer_timeout"]

@@ -4,20 +4,20 @@
 [ext_resource path="res://porta.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 20 )
+extents = Vector2( 7, 10.5 )
 
 [node name="porta" type="Area2D"]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 1, -20.75 )
-scale = Vector2( 1, 1.0122 )
+position = Vector2( 0, -11 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 180, 103, 18, 41 )
+region_rect = Rect2( 180, 103, 18, 23 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1, -20 )
+position = Vector2( 0, -10.5 )
 shape = SubResource( 1 )
 
 [connection signal="body_entered" from="." to="." method="_on_porta_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_porta_body_exited"]

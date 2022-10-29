@@ -16,7 +16,6 @@ func _ready():
 	Events.connect("dash_started", self, "_on_dash_started")
 	
 func _on_player_died():
-
 	timer.start(0.5)
 	yield(timer, "timeout")
 	for child in get_children():

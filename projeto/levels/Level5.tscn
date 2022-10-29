@@ -9,7 +9,7 @@
 [node name="Level5" instance=ExtResource( 1 )]
 
 [node name="Player" parent="." index="0"]
-position = Vector2( -49, 79 )
+position = Vector2( -45, 90 )
 
 [node name="porta" parent="." index="3" instance=ExtResource( 5 )]
 position = Vector2( -9, -90 )
@@ -120,11 +120,11 @@ position = Vector2( 135, -72 )
 [node name="Spikes4" parent="." index="35" instance=ExtResource( 3 )]
 position = Vector2( 117, -72 )
 
-[node name="apple" parent="." index="37" instance=ExtResource( 4 )]
+[node name="apple" parent="." index="36" instance=ExtResource( 4 )]
 position = Vector2( -48, -26 )
 
-[node name="apple2" parent="." index="38" instance=ExtResource( 4 )]
+[node name="apple2" parent="." index="37" instance=ExtResource( 4 )]
 position = Vector2( 118, 28 )
 
-[node name="apple3" parent="." index="39" instance=ExtResource( 4 )]
+[node name="apple3" parent="." index="38" instance=ExtResource( 4 )]
 position = Vector2( 187, -115 )

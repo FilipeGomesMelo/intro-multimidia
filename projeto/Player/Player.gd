@@ -18,24 +18,28 @@ export(bool) var reset_jump_on_ground = true
 export(bool) var reset_jump_on_wall = true
 export(bool) var reset_action_on_ground = true
 export(bool) var reset_action_on_wall = true
+export(int) var DOUBLE_JUMP = 1
+export(int) var ACTION_COUNT = 1
 
+var double_jump_count = DOUBLE_JUMP
+var action_count = ACTION_COUNT
 var velocity = Vector2.ZERO
 var state = MOVE
 var buffered_jump = false
 var coyote_jump = false
+var buffered_dash = false
 var dash_coyote_jump = false
 var wall_coyote_jump = 0
 
 var fruits_colleted_on_fase = 0
 
-onready var double_jump_count = moveConfig.DOUBLE_JUMPS
-onready var action_count = moveConfig.ACTION_COUNT
 onready var animatedSprite: = $AnimatedSprite
 onready var ladderCheck: = $LadderCheck
 onready var jumpBufferTimer: = $BufferJumpTimer
 onready var coyoteJumpTimer: = $CoyoteJumpTimer
 onready var startDashTimer: = $StartDashTimer
 onready var dashTimer: = $DashTimer
+onready var dashBufferTimer: = $DashBufferTimer
 onready var ghostTimer: = $GhostTimer
 onready var ghostStopTimer: = $GhostStopTimer
 onready var wallCoyoteJumpTimer: = $WallCoyoteJumpTimer
@@ -46,7 +50,9 @@ onready var rightWallCheck: = $RightWallCheck
 onready var leftWallCheck2: = $LeftWallCheck2
 onready var rightWallCheck2: = $RightWallCheck2
 
-var old_pos = Vector2.ZERO
+var hit_ground = false
+var previous_velocity = Vector2.ZERO
+var teste = false
 
 func _ready():
 	animatedSprite.frames = load("res://Player/Resources/PlayerGreeSkin.tres")
@@ -58,17 +64,55 @@ func _physics_process(delta):
 	
 	#fruits
 	$CanvasLayer/Label.set_text(String(Events.fruits))
-	pass
 
 	match state:
 		MOVE: move_state(input_vector, delta)
 		CLIMB: climb_state(input_vector)
-		START_DASH: start_dash_state()
-		DASH: dash_state()
+		START_DASH: start_dash_state(input_vector)
+		DASH: dash_state(input_vector)
+	
+	if teste:
+		if not is_on_floor() and state != DASH:
+			hit_ground = false
+			animatedSprite.scale.y = move_toward(
+				animatedSprite.scale.y,
+				range_lerp(
+					abs(velocity.y),
+					0, abs(moveConfig.JUMP_FORCE),
+					0.95, 1.15),
+				0.1)
+			animatedSprite.scale.x = move_toward(
+				animatedSprite.scale.x,
+				range_lerp(
+					abs(velocity.y),
+					0, abs(moveConfig.JUMP_FORCE),
+					1.15, 0.95),
+				0.1)
+				
+		if not hit_ground and is_on_floor():
+			hit_ground = true
+			animatedSprite.scale.y = range_lerp(
+				abs(previous_velocity.y),
+				0, abs(1700),
+				0.8, 0.5)
+			animatedSprite.scale.x = range_lerp(
+				abs(previous_velocity.y),
+				0, abs(1700),
+				1.2, 2.0)
+	
+		animatedSprite.scale.y = lerp(
+			abs(animatedSprite.scale.y),
+			1, 1 - pow(0.01, delta))
+		animatedSprite.scale.x = lerp(
+			abs(animatedSprite.scale.x),
+			1, 1 - pow(0.01, delta))
+	else:
+		teste = true
+	
 	if Input.is_action_just_pressed("reset"):
 		self.player_die()
-	old_pos = global_position
-
+	previous_velocity = velocity
+	
 	for platforms in get_slide_count():
 		var collision = get_slide_collision(platforms)
 		if collision.collider.has_method("collide_with"):
@@ -156,8 +200,10 @@ func climb_state(input_vector):
 	velocity = input_vector * moveConfig.CLIMB_SPEED
 	velocity = move_and_slide(velocity, Vector2.UP)
 
-func start_dash_state():
+func start_dash_state(input_vector: Vector2):
 	move_and_slide(Vector2.ZERO, Vector2.UP)
+	if input_vector.length() != 0:
+		velocity = input_vector.normalized() * velocity.length()
 	ghostTimer.start()
 	ghostStopTimer.start()
 	if is_on_floor():
@@ -167,10 +213,13 @@ func start_dash_state():
 		if reset_action_on_ground:
 			reset_actions()
 
-func dash_state():
+func dash_state(input_vector):
 	animatedSprite.animation = "Jump"
 	velocity = move_and_slide(velocity, Vector2.UP)
 	velocity = velocity.normalized() * 350
+	if Input.is_action_just_pressed("action"):
+		buffered_dash = true
+		dashBufferTimer.start()
 	if Input.is_action_just_pressed("jump"):
 		buffered_jump = true
 	if is_on_floor():
@@ -182,7 +231,9 @@ func dash_state():
 
 func instance_ghost():
 	var ghost: Sprite = ghost_scene.instance()
-	ghost.global_position = global_position
+	ghost.global_position = animatedSprite.global_position
+	ghost.offset = animatedSprite.offset
+	ghost.scale = animatedSprite.scale
 	ghost.texture = animatedSprite.frames.get_frame(
 			animatedSprite.animation,
 			animatedSprite.frame)
@@ -207,13 +258,16 @@ func can_jump():
 	return is_on_floor() or coyote_jump
 
 func reset_double_jumps():
-	double_jump_count = moveConfig.DOUBLE_JUMPS
+	double_jump_count = DOUBLE_JUMP
 
 func reset_actions():
-	action_count = moveConfig.ACTION_COUNT
+	action_count = ACTION_COUNT
 
 func input_dash(input_vector):
-	if Input.is_action_just_pressed("action") and action_count > 0:
+	if (Input.is_action_just_pressed("action") 
+			or buffered_dash) \
+			and action_count > 0:
+		buffered_dash = false
 		if input_vector == Vector2.ZERO:
 			input_vector.x = 1 if animatedSprite.flip_h else -1
 		velocity = 350 * input_vector.normalized()
@@ -230,7 +284,7 @@ func input_jump(delta):
 		buffered_jump = false
 		coyote_jump = false
 		velocity.y = moveConfig.JUMP_FORCE
-		velocity.x = ((global_position - old_pos)/delta).x
+		velocity.x = (previous_velocity).x
 
 func input_wall_jump(delta, direction):
 	if Input.is_action_just_pressed("jump") or buffered_jump:
@@ -348,4 +402,6 @@ func _on_GhostStopTimer_timeout():
 func colletedFruit():
 	fruits_colleted_on_fase += 1
 	Events.add_fruit(1)
-	pass
+
+func _on_DashBufferTimer_timeout():
+	buffered_dash = false
