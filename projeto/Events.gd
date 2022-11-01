@@ -2,6 +2,7 @@ extends Node
 
 signal player_died
 signal dash_started
+signal charge_changed
 
 var fruits = 0
 
@@ -15,3 +16,4 @@ func reset_fruit(fruits_colleted_on_fase) -> void:
 
 func update_fruits() -> void:
 	print(fruits)
+

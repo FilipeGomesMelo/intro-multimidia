@@ -73,7 +73,7 @@ func _physics_process(delta):
 	
 	if teste:
 		if not is_on_floor() and state != DASH:
-			hit_ground = false
+			hit_ground = false 
 			animatedSprite.scale.y = move_toward(
 				animatedSprite.scale.y,
 				range_lerp(
@@ -262,6 +262,7 @@ func reset_double_jumps():
 
 func reset_actions():
 	action_count = ACTION_COUNT
+	Events.emit_signal("charge_changed")
 
 func input_dash(input_vector):
 	if (Input.is_action_just_pressed("action") 
@@ -277,6 +278,7 @@ func input_dash(input_vector):
 		state = START_DASH
 		startDashTimer.start()
 		action_count -= 1
+		Events.emit_signal("charge_changed")
 
 func input_jump(delta):
 	if Input.is_action_just_pressed("jump") or buffered_jump:
@@ -405,3 +407,7 @@ func colletedFruit():
 
 func _on_DashBufferTimer_timeout():
 	buffered_dash = false
+
+
+func _on_Player_charge_changed():
+	pass # Replace with function body.

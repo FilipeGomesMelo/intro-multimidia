@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Apple.png-8f05ae323e4c51c2fc617491ac52bf2c.stex"
+path="res://.import/charge_bolt.png-1f917f2c144f5306e9ab8f0901d1f663.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://items/Apple.png"
-dest_files=[ "res://.import/Apple.png-8f05ae323e4c51c2fc617491ac52bf2c.stex" ]
+source_file="res://Resources/charge_bolt.png"
+dest_files=[ "res://.import/charge_bolt.png-1f917f2c144f5306e9ab8f0901d1f663.stex" ]
 
 [params]
 
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0
