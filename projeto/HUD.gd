@@ -11,7 +11,7 @@ func _ready():
 	pass # Replace with function body.
 
 func update_charge(current_charge, max_charge):
-#	$nrg/nrg_empty.set_size(Vector2(32*max_charge, 32))
+	$nrg/nrg_empty.set_size(Vector2(32*max_charge, 32))
 	$nrg/nrg_charged.set_size(Vector2(32*current_charge, 32))
 	
 
