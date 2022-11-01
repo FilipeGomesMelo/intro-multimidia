@@ -16,6 +16,8 @@ expand = true
 stretch_mode = 2
 
 [node name="nrg_charged" type="TextureRect" parent="nrg"]
+margin_right = 32.0
+margin_bottom = 32.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 2
