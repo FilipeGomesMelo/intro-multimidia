@@ -6,6 +6,7 @@ var state = HOVER
 
 onready var start_position: = Vector2.ZERO
 onready var timer: = $Timer
+onready var idleWaitTimer: = $IdleWaitTimer
 onready var raycast: = $RayCastDown
 onready var animated_sprite: = $AnimatedSprite
 onready var collisionShape: = $CollisionDown
@@ -70,7 +71,7 @@ func _physics_process(delta):
 		RISE: rise_state(delta)
 
 func hover_state():
-	if player_targeted:
+	if player_targeted and idleWaitTimer.time_left == 0:
 		state = FALL
 
 func fall_state(delta):
@@ -78,11 +79,14 @@ func fall_state(delta):
 	collisionShape.disabled = true
 	position += (slam_speed * delta) * direction
 	if raycast.is_colliding():
-		var collision_point = raycast.get_collision_point()
-		position.y = collision_point.y + (global_position.y - colissionPoint.global_position.y)
-		position.x = collision_point.x + (global_position.x - colissionPoint.global_position.x)
+		var collided_with = raycast.get_collider()
+		if not collided_with is KinematicBody2D:
+			var collision_point = raycast.get_collision_point()
+			position.y = collision_point.y + (global_position.y - colissionPoint.global_position.y)
+			position.x = collision_point.x + (global_position.x - colissionPoint.global_position.x)
 		state = LAND
 		soundPlayer.play()
+		Events.emit_signal("shake_camera", 0.1 * self.scale.x, self.scale.x + 1.5)
 		timer.start(1.0)
 		particles.emitting = true
 		collisionShape.disabled = false
@@ -97,6 +101,7 @@ func rise_state(delta):
 	position.x = move_toward(position.x, start_position.x, return_speed * delta)
 	if position == start_position:
 		state = HOVER
+		idleWaitTimer.start()
 
 
 func _on_PlayerCheck_body_entered(body):

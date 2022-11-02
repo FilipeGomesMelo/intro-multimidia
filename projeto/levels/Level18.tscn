@@ -1,0 +1,233 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://World/Spikes.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Enemies/StompEnemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/Level.tscn" type="PackedScene" id=3]
+[ext_resource path="res://World/TileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://porta.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Enemies/HitBox.tscn" type="PackedScene" id=6]
+
+[sub_resource type="LineShape2D" id=1]
+d = 0.01
+
+[node name="Level7" instance=ExtResource( 3 )]
+
+[node name="Player" parent="." index="0"]
+position = Vector2( -45, 90 )
+reset_action_on_ground = true
+ACTION_COUNT = 1
+
+[node name="TileMap" parent="." index="3" instance=ExtResource( 4 )]
+tile_data = PoolIntArray( -65461, 0, 0, 75, 0, 0, 65551, 0, 0, 65557, 0, 0, 65627, 0, 0, 131087, 0, 0, 131163, 0, 0, 196617, 0, 0, 196715, 0, 0, 196718, 0, 0, 196719, 0, 0, 196720, 0, 0, 262153, 0, 0, 262165, 0, 0, 262251, 0, 0, 393212, 0, 0, 393213, 0, 0, 393214, 0, 0, 327707, 0, 0, 393243, 0, 0 )
+
+[node name="StompEnemy" parent="TileMap" index="0" instance=ExtResource( 2 )]
+position = Vector2( 0, 108 )
+scale = Vector2( 2, 2 )
+slam_direction = 2
+slam_speed = 175.0
+
+[node name="StompEnemy2" parent="TileMap" index="1" instance=ExtResource( 2 )]
+position = Vector2( 504, 72 )
+scale = Vector2( 2, 2 )
+slam_direction = 2
+
+[node name="Spikes" parent="TileMap" index="2" instance=ExtResource( 1 )]
+position = Vector2( 171, 54 )
+scale = Vector2( 1, 0.85 )
+
+[node name="Spikes3" parent="TileMap" index="3" instance=ExtResource( 1 )]
+position = Vector2( 162, 81 )
+rotation = -1.57079
+scale = Vector2( 1, 0.85 )
+
+[node name="Spikes4" parent="TileMap" index="4" instance=ExtResource( 1 )]
+position = Vector2( 162, 63 )
+rotation = -1.57079
+scale = Vector2( 1, 0.85 )
+
+[node name="Spikes5" parent="TileMap" index="5" instance=ExtResource( 1 )]
+position = Vector2( 180, 81 )
+rotation = -4.71238
+scale = Vector2( 1, 0.85 )
+
+[node name="Spikes13" parent="TileMap" index="6" instance=ExtResource( 1 )]
+position = Vector2( 180, 63 )
+rotation = -4.71238
+scale = Vector2( 1, 0.85 )
+
+[node name="Spikes6" parent="TileMap" index="7" instance=ExtResource( 1 )]
+position = Vector2( 171, 90 )
+rotation = -3.14159
+scale = Vector2( 1, 0.85 )
+
+[node name="Spikes7" parent="TileMap" index="8" instance=ExtResource( 1 )]
+position = Vector2( 279, 18 )
+scale = Vector2( 1, 0.85 )
+
+[node name="Spikes17" parent="TileMap" index="9" instance=ExtResource( 1 )]
+position = Vector2( 387, 18 )
+
+[node name="Spikes8" parent="TileMap" index="10" instance=ExtResource( 1 )]
+position = Vector2( 270, 27 )
+rotation = -1.57079
+scale = Vector2( 1, 0.85 )
+
+[node name="Spikes9" parent="TileMap" index="11" instance=ExtResource( 1 )]
+position = Vector2( 270, 45 )
+rotation = -1.57079
+scale = Vector2( 1, 0.85 )
+
+[node name="Spikes10" parent="TileMap" index="12" instance=ExtResource( 1 )]
+position = Vector2( 288, 27 )
+rotation = -4.71238
+scale = Vector2( 1, 0.85 )
+
+[node name="Spikes11" parent="TileMap" index="13" instance=ExtResource( 1 )]
+position = Vector2( 288, 45 )
+rotation = -4.71238
+scale = Vector2( 1, 0.85 )
+
+[node name="Spikes12" parent="TileMap" index="14" instance=ExtResource( 1 )]
+position = Vector2( 279, 54 )
+rotation = -3.14159
+scale = Vector2( 1, 0.85 )
+
+[node name="Spikes22" parent="TileMap" index="15" instance=ExtResource( 1 )]
+position = Vector2( 495, 90 )
+
+[node name="Spikes23" parent="TileMap" index="16" instance=ExtResource( 1 )]
+position = Vector2( 486, 99 )
+rotation = -1.57079
+
+[node name="Spikes24" parent="TileMap" index="17" instance=ExtResource( 1 )]
+position = Vector2( 486, 117 )
+rotation = -1.57079
+
+[node name="Spikes25" parent="TileMap" index="18" instance=ExtResource( 1 )]
+position = Vector2( 504, 99 )
+rotation = -4.71238
+
+[node name="Spikes26" parent="TileMap" index="19" instance=ExtResource( 1 )]
+position = Vector2( 504, 117 )
+rotation = -4.71238
+
+[node name="Spikes27" parent="TileMap" index="20" instance=ExtResource( 1 )]
+position = Vector2( 495, 126 )
+rotation = -3.14159
+
+[node name="StompEnemy3" parent="TileMap" index="21" instance=ExtResource( 2 )]
+position = Vector2( 810, 36 )
+scale = Vector2( 2, 2 )
+z_index = -1
+slam_direction = 2
+
+[node name="StompEnemy4" parent="TileMap" index="22" instance=ExtResource( 2 )]
+position = Vector2( 1080, 0 )
+scale = Vector2( 2, 2 )
+z_index = -1
+slam_direction = 2
+
+[node name="Spikes40" parent="TileMap" index="23" instance=ExtResource( 1 )]
+position = Vector2( 1359, -18 )
+
+[node name="Spikes41" parent="TileMap" index="24" instance=ExtResource( 1 )]
+position = Vector2( 1350, -9 )
+rotation = -1.57079
+
+[node name="Spikes42" parent="TileMap" index="25" instance=ExtResource( 1 )]
+position = Vector2( 1350, 9 )
+rotation = -1.57079
+
+[node name="Spikes43" parent="TileMap" index="26" instance=ExtResource( 1 )]
+position = Vector2( 1368, -9 )
+rotation = -4.71238
+
+[node name="Spikes44" parent="TileMap" index="27" instance=ExtResource( 1 )]
+position = Vector2( 1368, 9 )
+rotation = -4.71238
+
+[node name="Spikes45" parent="TileMap" index="28" instance=ExtResource( 1 )]
+position = Vector2( 1359, 18 )
+rotation = -3.14159
+
+[node name="Spikes46" parent="TileMap" index="29" instance=ExtResource( 1 )]
+position = Vector2( 1647, 18 )
+
+[node name="Spikes47" parent="TileMap" index="30" instance=ExtResource( 1 )]
+position = Vector2( 1638, 27 )
+rotation = -1.57079
+
+[node name="Spikes48" parent="TileMap" index="31" instance=ExtResource( 1 )]
+position = Vector2( 1638, 45 )
+rotation = -1.57079
+
+[node name="Spikes49" parent="TileMap" index="32" instance=ExtResource( 1 )]
+position = Vector2( 1656, 27 )
+rotation = -4.71238
+
+[node name="Spikes50" parent="TileMap" index="33" instance=ExtResource( 1 )]
+position = Vector2( 1656, 45 )
+rotation = -4.71238
+
+[node name="Spikes51" parent="TileMap" index="34" instance=ExtResource( 1 )]
+position = Vector2( 1647, 54 )
+rotation = -3.14159
+
+[node name="Spikes52" parent="TileMap" index="35" instance=ExtResource( 1 )]
+position = Vector2( 1935, 54 )
+
+[node name="Spikes53" parent="TileMap" index="36" instance=ExtResource( 1 )]
+position = Vector2( 1926, 63 )
+rotation = -1.57079
+
+[node name="Spikes54" parent="TileMap" index="37" instance=ExtResource( 1 )]
+position = Vector2( 1926, 81 )
+rotation = -1.57079
+
+[node name="Spikes55" parent="TileMap" index="38" instance=ExtResource( 1 )]
+position = Vector2( 1944, 63 )
+rotation = -4.71238
+
+[node name="Spikes56" parent="TileMap" index="39" instance=ExtResource( 1 )]
+position = Vector2( 1944, 81 )
+rotation = -4.71238
+
+[node name="Spikes57" parent="TileMap" index="40" instance=ExtResource( 1 )]
+position = Vector2( 1935, 90 )
+rotation = -3.14159
+
+[node name="Spikes14" parent="TileMap" index="41" instance=ExtResource( 1 )]
+position = Vector2( 378, 27 )
+rotation = -1.57079
+
+[node name="Spikes15" parent="TileMap" index="42" instance=ExtResource( 1 )]
+position = Vector2( 396, 27 )
+rotation = -4.71238
+
+[node name="Spikes16" parent="TileMap" index="43" instance=ExtResource( 1 )]
+position = Vector2( 387, 36 )
+rotation = -3.14159
+
+[node name="Spikes18" parent="TileMap" index="44" instance=ExtResource( 1 )]
+position = Vector2( 387, 72 )
+
+[node name="Spikes19" parent="TileMap" index="45" instance=ExtResource( 1 )]
+position = Vector2( 378, 81 )
+rotation = -1.57079
+
+[node name="Spikes20" parent="TileMap" index="46" instance=ExtResource( 1 )]
+position = Vector2( 396, 81 )
+rotation = -4.71238
+
+[node name="Spikes21" parent="TileMap" index="47" instance=ExtResource( 1 )]
+position = Vector2( 387, 90 )
+rotation = -3.14159
+
+[node name="porta" parent="TileMap" index="48" instance=ExtResource( 5 )]
+position = Vector2( 2007, 54 )
+
+[node name="HitBox" parent="." index="4" instance=ExtResource( 6 )]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2( 702, 225 )
+shape = SubResource( 1 )

@@ -19,12 +19,15 @@ position = Vector2( -28, 9 )
 
 [node name="Spikes" parent="TileMap" index="1" instance=ExtResource( 4 )]
 position = Vector2( -45, 144 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes2" parent="TileMap" index="2" instance=ExtResource( 4 )]
 position = Vector2( -27, 144 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes3" parent="TileMap" index="3" instance=ExtResource( 4 )]
 position = Vector2( -9, 144 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes4" parent="TileMap" index="4" instance=ExtResource( 4 )]
 position = Vector2( 126, 45 )

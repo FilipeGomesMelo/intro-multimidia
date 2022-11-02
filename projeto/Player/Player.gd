@@ -18,7 +18,7 @@ export(bool) var reset_jump_on_ground = true
 export(bool) var reset_jump_on_wall = true
 export(bool) var reset_action_on_ground = true
 export(bool) var reset_action_on_wall = true
-export(int) var DOUBLE_JUMP = 1
+export(int) var DOUBLE_JUMP = 0
 export(int) var ACTION_COUNT = 1
 
 var double_jump_count = DOUBLE_JUMP
@@ -51,6 +51,7 @@ onready var leftWallCheck2: = $LeftWallCheck2
 onready var rightWallCheck2: = $RightWallCheck2
 
 var hit_ground = false
+var old_pos = Vector2.ZERO
 var previous_velocity = Vector2.ZERO
 var teste = false
 
@@ -111,7 +112,7 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("reset"):
 		self.player_die()
-	previous_velocity = velocity
+	old_pos = global_position
 	
 	for platforms in get_slide_count():
 		var collision = get_slide_collision(platforms)
@@ -284,7 +285,7 @@ func input_jump(delta):
 		buffered_jump = false
 		coyote_jump = false
 		velocity.y = moveConfig.JUMP_FORCE
-		velocity.x = (previous_velocity).x
+		velocity.x = (global_position - old_pos).x
 
 func input_wall_jump(delta, direction):
 	if Input.is_action_just_pressed("jump") or buffered_jump:
