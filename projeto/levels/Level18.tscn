@@ -14,8 +14,6 @@ d = 0.01
 
 [node name="Player" parent="." index="0"]
 position = Vector2( -45, 90 )
-reset_action_on_ground = true
-ACTION_COUNT = 1
 
 [node name="TileMap" parent="." index="3" instance=ExtResource( 4 )]
 tile_data = PoolIntArray( -65461, 0, 0, 75, 0, 0, 65551, 0, 0, 65557, 0, 0, 65627, 0, 0, 131087, 0, 0, 131163, 0, 0, 196617, 0, 0, 196715, 0, 0, 196718, 0, 0, 196719, 0, 0, 196720, 0, 0, 262153, 0, 0, 262165, 0, 0, 262251, 0, 0, 393212, 0, 0, 393213, 0, 0, 393214, 0, 0, 327707, 0, 0, 393243, 0, 0 )
@@ -225,6 +223,7 @@ rotation = -3.14159
 
 [node name="porta" parent="TileMap" index="48" instance=ExtResource( 5 )]
 position = Vector2( 2007, 54 )
+target_level_path = "res://levels/Level19.tscn"
 
 [node name="HitBox" parent="." index="4" instance=ExtResource( 6 )]
 

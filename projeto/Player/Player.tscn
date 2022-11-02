@@ -41,6 +41,7 @@ reset_action_on_wall = false
 material = SubResource( 4 )
 frames = ExtResource( 1 )
 animation = "Run_5"
+frame = 1
 playing = true
 offset = Vector2( 0, -12 )
 flip_h = true

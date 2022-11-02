@@ -2,12 +2,14 @@ extends Node2D
 
 onready var animationPlayer: = $AnimationPlayer
 
+export(float) var force = 325
+export(float) var min_vertical_force = 150
+
 func end_bounce():
 	animationPlayer.current_animation = 'idle'
 
 func _on_BounceBox_body_entered(body):
 	if body is Player:
-		var force = 325
 		body.state = body.MOVE
 		body.teste = false
 		body.animatedSprite.scale.y = range_lerp(
@@ -22,7 +24,7 @@ func _on_BounceBox_body_entered(body):
 		body.velocity = Vector2.UP.rotated(self.transform.get_rotation())
 		body.velocity.y *= force
 		if body.velocity.y < 0:
-			body.velocity.y = min(body.velocity.y, -150)
+			body.velocity.y = min(body.velocity.y, -min_vertical_force)
 		body.velocity.x *= force*2
 		body.reset_actions()
 		body.reset_double_jumps()

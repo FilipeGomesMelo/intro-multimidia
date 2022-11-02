@@ -325,6 +325,7 @@ position = Vector2( 63, -36 )
 
 [node name="porta" parent="TileMap" index="81" instance=ExtResource( 4 )]
 position = Vector2( 63, -162 )
+target_level_path = "res://levels/Level18.tscn"
 
 [node name="FallingPlatform" parent="TileMap" index="82" instance=ExtResource( 5 )]
 position = Vector2( 144, 117 )

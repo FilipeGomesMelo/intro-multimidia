@@ -41,7 +41,7 @@ scale = Vector2( 1, 2 )
 
 [node name="porta" parent="." index="11" instance=ExtResource( 4 )]
 position = Vector2( 207, -72 )
-target_level_path = "res://levels/Level3.tscn"
+target_level_path = "res://levels/Level14.tscn"
 
 [node name="FallingPlatform" parent="." index="12" instance=ExtResource( 5 )]
 position = Vector2( 90, 9 )

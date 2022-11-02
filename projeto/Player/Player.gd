@@ -29,6 +29,7 @@ var buffered_jump = false
 var coyote_jump = false
 var buffered_dash = false
 var dash_coyote_jump = false
+var just_jumped = 0
 var wall_coyote_jump = 0
 
 var fruits_colleted_on_fase = 0
@@ -121,6 +122,10 @@ func _physics_process(delta):
 func move_state(input_vector, delta):
 	if is_on_ladder() and Input.is_action_just_pressed("ui_up"):
 		state = CLIMB
+	
+	if just_jumped > 0:
+		velocity.y = moveConfig.JUMP_FORCE
+		just_jumped -= 1
 	
 	apply_gravity(input_vector)
 	if input_vector.x == 0:
@@ -286,6 +291,7 @@ func input_jump(delta):
 		SoundPlayer.play_sound(SoundPlayer.JUMP)
 		buffered_jump = false
 		coyote_jump = false
+		just_jumped = 2
 		velocity.y = moveConfig.JUMP_FORCE
 		velocity.x = (global_position - old_pos).x
 

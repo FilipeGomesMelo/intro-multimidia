@@ -16,7 +16,7 @@ tile_data = PoolIntArray( -131076, 0, 0, -131075, 0, 0, -131074, 0, 0, -131073, 
 
 [node name="porta" parent="TileMap" index="0" instance=ExtResource( 5 )]
 position = Vector2( 26, 0 )
-target_level_path = "res://levels/Level13.tscn"
+target_level_path = "res://levels/Level16.tscn"
 
 [node name="Spring" parent="TileMap" index="1" instance=ExtResource( 4 )]
 position = Vector2( 63, 108 )

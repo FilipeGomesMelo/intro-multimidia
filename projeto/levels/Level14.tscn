@@ -135,3 +135,4 @@ scale = Vector2( 1, 2 )
 [node name="porta" parent="TileMap" index="24" instance=ExtResource( 6 )]
 position = Vector2( 477, 126 )
 z_index = -1
+target_level_path = "res://levels/Level3.tscn"
