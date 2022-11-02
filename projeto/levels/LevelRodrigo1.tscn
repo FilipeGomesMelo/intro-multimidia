@@ -59,13 +59,13 @@ position = Vector2( 111, 72 )
 position = Vector2( 111, 90 )
 
 [node name="Spikes" parent="TileMap" index="7" instance=ExtResource( 7 )]
-position = Vector2( 152, 126 )
+position = Vector2( 153, 126 )
 
 [node name="Spikes2" parent="TileMap" index="8" instance=ExtResource( 7 )]
-position = Vector2( 170, 126 )
+position = Vector2( 171, 126 )
 
 [node name="Spikes3" parent="TileMap" index="9" instance=ExtResource( 7 )]
-position = Vector2( 188, 126 )
+position = Vector2( 189, 126 )
 
 [node name="MovingSpikeEnemy" parent="." index="6" instance=ExtResource( 5 )]
 position = Vector2( 10, 30 )
@@ -96,7 +96,7 @@ slam_direction = 3
 
 [node name="porta" parent="." index="12" instance=ExtResource( 8 )]
 position = Vector2( 10, 90 )
-target_level_path = "res://levels/Level2.tscn"
+target_level_path = "res://levels/LevelRodrigo2.tscn"
 
 [node name="Collectable" parent="." index="13" instance=ExtResource( 10 )]
 position = Vector2( 64, -68 )

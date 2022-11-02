@@ -63,4 +63,4 @@ rotation = -3.14159
 
 [node name="porta" parent="TileMap" index="12" instance=ExtResource( 5 )]
 position = Vector2( 116, -36 )
-target_level_path = "res://levels/Level7.tscn"
+target_level_path = "res://levels/LevelRodrigo1.tscn"

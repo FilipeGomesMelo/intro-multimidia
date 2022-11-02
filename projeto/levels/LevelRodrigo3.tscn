@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://levels/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/TileMap.tscn" type="PackedScene" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://World/Spikes.tscn" type="PackedScene" id=7]
 [ext_resource path="res://porta.tscn" type="PackedScene" id=8]
 [ext_resource path="res://World/Spring.tscn" type="PackedScene" id=9]
-[ext_resource path="res://World/collectable.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Items/apple.tscn" type="PackedScene" id=11]
 [ext_resource path="res://World/FallingPlatform.tscn" type="PackedScene" id=12]
 
@@ -113,28 +112,22 @@ position = Vector2( -18, -1 )
 
 [node name="porta" parent="." index="13" instance=ExtResource( 8 )]
 position = Vector2( -27, -162 )
-target_level_path = "res://levels/Level2.tscn"
+target_level_path = "res://levels/LevelRodrigo4.tscn"
 
-[node name="Collectable2" parent="." index="14" instance=ExtResource( 10 )]
-position = Vector2( 481, -135 )
-
-[node name="Collectable5" parent="." index="15" instance=ExtResource( 10 )]
-position = Vector2( 8, -112 )
-
-[node name="Collectable3" parent="." index="16" instance=ExtResource( 10 )]
-position = Vector2( 98, -44 )
-
-[node name="FallingPlatform" parent="." index="17" instance=ExtResource( 12 )]
+[node name="FallingPlatform" parent="." index="14" instance=ExtResource( 12 )]
 position = Vector2( 149, -77 )
 
-[node name="FallingPlatform2" parent="." index="18" instance=ExtResource( 12 )]
+[node name="FallingPlatform2" parent="." index="15" instance=ExtResource( 12 )]
 position = Vector2( 336, -24 )
 
-[node name="apple" parent="." index="19" instance=ExtResource( 11 )]
+[node name="apple" parent="." index="16" instance=ExtResource( 11 )]
 position = Vector2( -18, 64 )
 
-[node name="apple2" parent="." index="20" instance=ExtResource( 11 )]
+[node name="apple4" parent="." index="17" instance=ExtResource( 11 )]
+position = Vector2( 99, -45 )
+
+[node name="apple2" parent="." index="18" instance=ExtResource( 11 )]
 position = Vector2( 449, 36 )
 
-[node name="apple3" parent="." index="21" instance=ExtResource( 11 )]
+[node name="apple3" parent="." index="19" instance=ExtResource( 11 )]
 position = Vector2( 433, -96 )
