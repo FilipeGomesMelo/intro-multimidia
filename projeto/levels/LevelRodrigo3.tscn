@@ -15,7 +15,7 @@
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 17.4261, 88.7016, 0, 0, 0, 0, 19.9156, 88.7016, 0, 0, 0, 0, 18.6709, 92.3975, 0, 0, 0, 0, 21.1603, 88.7016, 0, 0, 0, 0, 18.6709, 88.7016, 0, 0, 0, 0, 11.2025, 129.357, 0, 0, 0, 0, -43.5653, 152.764, 0, 0, 0, 0, -40.806, 154.17, 0, 0, 0, 0, -42.3206, 94.8614, 0, 0, 0, 0, -43.5653, 80.0778, 0, 0, 0, 0, -40.806, 62.4758, 0, 0, 0, 0, -41.9302, 52.8024, 0, 0, 0, 0, -43.5653, 20.9434, 0, 0, 0, 0, -37.3417, 20.9434, 0, 0, 0, 0, -37.3417, 20.9434, 0, 0, 0, 0, 3.73417, 35.727, 0, 0, 0, 0, 4.97889, 35.727, 0, 0, 0, 0, 51.0337, 35.727 )
+"points": PoolVector2Array( 0, 0, 0, 0, 18.6709, 88.7016, 0, 0, 0, 0, 11.2025, 137.98, 0, 0, 0, 0, -39.8312, 153.996, 0, 0, 0, 0, -52.2784, 131.82, 0, 0, 0, 0, -43.5653, 92.3975, 0, 0, 0, 0, -38.5864, 73.918, 0, 0, 0, 0, -38.5864, 46.8148, 0, 0, 0, 0, -43.5653, 20.9434, 0, 0, 0, 0, -37.3417, 20.9434, 0, 0, 0, 0, -37.3417, 20.9434, 0, 0, 0, 0, 3.73417, 35.727, 0, 0, 0, 0, 4.97889, 35.727, 0, 0, 0, 0, 51.0337, 35.727 )
 }
 
 [sub_resource type="Curve2D" id=2]
@@ -68,19 +68,19 @@ position = Vector2( 398, 1 )
 position = Vector2( 398, 19 )
 
 [node name="Spikes" parent="Timer/TileMap" index="7" instance=ExtResource( 7 )]
-position = Vector2( 60, 106 )
+position = Vector2( 63, 108 )
 
 [node name="Spikes2" parent="Timer/TileMap" index="8" instance=ExtResource( 7 )]
-position = Vector2( 77, 106 )
+position = Vector2( 81, 108 )
 
 [node name="Spikes3" parent="Timer/TileMap" index="9" instance=ExtResource( 7 )]
-position = Vector2( 93, 106 )
+position = Vector2( 99, 108 )
 
 [node name="Spikes4" parent="Timer/TileMap" index="10" instance=ExtResource( 7 )]
-position = Vector2( 25, 105 )
+position = Vector2( 27, 108 )
 
 [node name="Spikes5" parent="Timer/TileMap" index="11" instance=ExtResource( 7 )]
-position = Vector2( 43, 106 )
+position = Vector2( 45, 108 )
 
 [node name="MovingSpikeEnemy" parent="." index="6" instance=ExtResource( 5 )]
 position = Vector2( 34, -203 )
