@@ -36,12 +36,11 @@ collision_layer = 2
 script = ExtResource( 2 )
 moveConfig = ExtResource( 3 )
 reset_action_on_wall = false
-DOUBLE_JUMP = 0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 4 )
 frames = ExtResource( 1 )
-animation = "Idle"
+animation = "Run_5"
 playing = true
 offset = Vector2( 0, -12 )
 flip_h = true

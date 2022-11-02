@@ -74,7 +74,7 @@ func _physics_process(delta):
 	
 	if teste:
 		if not is_on_floor() and state != DASH:
-			hit_ground = false
+			hit_ground = false 
 			animatedSprite.scale.y = move_toward(
 				animatedSprite.scale.y,
 				range_lerp(
@@ -124,11 +124,11 @@ func move_state(input_vector, delta):
 	
 	apply_gravity(input_vector)
 	if input_vector.x == 0:
-		animatedSprite.animation = "Idle"
+		animatedSprite.animation = find_sprite("Idle", input_vector)
 		if wallJumpTimer.time_left == 0:
 			apply_friction()
 	else:
-		animatedSprite.animation = "Run"
+		animatedSprite.animation = find_sprite("Run", input_vector)
 		if wallJumpTimer.time_left == 0:
 			animatedSprite.flip_h = input_vector.x > 0
 			apply_acceleration(input_vector.x)
@@ -139,7 +139,7 @@ func move_state(input_vector, delta):
 		if reset_action_on_ground:
 			reset_actions()
 	else:
-		animatedSprite.animation = "Jump"
+		animatedSprite.animation = find_sprite("Jump", input_vector)
 	
 	var was_on_floor = is_on_floor()
 	var was_on_wall = 0
@@ -175,7 +175,7 @@ func move_state(input_vector, delta):
 	
 	# Just landed
 	if is_on_floor() and not was_on_floor:
-		animatedSprite.animation = "Run"
+		animatedSprite.animation = find_sprite("Run", input_vector)
 		animatedSprite.frame = 1
 	
 	# Just left the floor
@@ -194,9 +194,9 @@ func climb_state(input_vector):
 	
 	reset_double_jumps()
 	if input_vector.length() != 0:
-		animatedSprite.animation = "Run"
+		animatedSprite.animation = find_sprite("Run", input_vector)
 	else:
-		animatedSprite.animation = "Idle"
+		animatedSprite.animation = find_sprite("Idle", input_vector)
 	
 	velocity = input_vector * moveConfig.CLIMB_SPEED
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -215,7 +215,7 @@ func start_dash_state(input_vector: Vector2):
 			reset_actions()
 
 func dash_state(input_vector):
-	animatedSprite.animation = "Jump"
+	animatedSprite.animation = find_sprite("Jump", input_vector)
 	velocity = move_and_slide(velocity, Vector2.UP)
 	velocity = velocity.normalized() * 350
 	if Input.is_action_just_pressed("action"):
@@ -263,6 +263,7 @@ func reset_double_jumps():
 
 func reset_actions():
 	action_count = ACTION_COUNT
+	Events.emit_signal("charge_changed")
 
 func input_dash(input_vector):
 	if (Input.is_action_just_pressed("action") 
@@ -278,6 +279,7 @@ func input_dash(input_vector):
 		state = START_DASH
 		startDashTimer.start()
 		action_count -= 1
+		Events.emit_signal("charge_changed")
 
 func input_jump(delta):
 	if Input.is_action_just_pressed("jump") or buffered_jump:
@@ -406,3 +408,17 @@ func colletedFruit():
 
 func _on_DashBufferTimer_timeout():
 	buffered_dash = false
+
+
+func _on_Player_charge_changed():
+	pass # Replace with function body.
+
+func looking(input_vector):
+	if input_vector == Vector2.ZERO:
+		return Vector2(1 if animatedSprite.flip_h else -1, input_vector.y)
+	else:
+		return input_vector
+
+func find_sprite(type: String, input_vector: Vector2):
+	var look_vector = looking(input_vector)
+	return type + '_' + str(abs(look_vector.x) + 2*int(input_vector.y == 1) + 4*int(input_vector.y==-1))

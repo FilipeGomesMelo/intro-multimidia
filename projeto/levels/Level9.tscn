@@ -241,7 +241,7 @@ position = Vector2( -36, 144 )
 rotation = -4.71238
 
 [node name="Collectable" parent="." index="4" instance=ExtResource( 3 )]
-position = Vector2( 117, 90 )
+position = Vector2( 144, 90 )
 
 [node name="Collectable3" parent="." index="5" instance=ExtResource( 3 )]
 position = Vector2( -27, -135 )
