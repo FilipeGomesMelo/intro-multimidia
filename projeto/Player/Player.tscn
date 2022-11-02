@@ -41,7 +41,7 @@ DOUBLE_JUMP = 0
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 4 )
 frames = ExtResource( 1 )
-animation = "Idle"
+animation = "Run_5"
 playing = true
 offset = Vector2( 0, -12 )
 flip_h = true
