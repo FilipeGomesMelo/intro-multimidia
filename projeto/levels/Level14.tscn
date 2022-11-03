@@ -1,8 +1,137 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://levels/Level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Enemies/StompEnemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://World/Spikes.tscn" type="PackedScene" id=3]
+[ext_resource path="res://World/TileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Enemies/MovingSpikeEnemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://porta.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -99, 0 )
+}
 
 [node name="Level7" instance=ExtResource( 1 )]
 
 [node name="Player" parent="." index="0"]
-position = Vector2( -27, 78 )
+position = Vector2( -27, 90 )
+
+[node name="MovingSpikeEnemy" parent="." index="3" instance=ExtResource( 5 )]
+position = Vector2( 486, 126 )
+scale = Vector2( 2, 2 )
+curve = SubResource( 1 )
+animation_type = 1
+speed = 40.0
+
+[node name="TileMap" parent="." index="4" instance=ExtResource( 4 )]
+tile_data = PoolIntArray( -131079, 0, 0, -131078, 0, 0, -131077, 0, 0, -131076, 0, 0, -131075, 0, 0, -131074, 0, 0, -131073, 0, 0, -196608, 0, 0, -196607, 0, 0, -196606, 0, 0, -196605, 0, 0, -196604, 0, 0, -196603, 0, 0, -196602, 0, 0, -196601, 0, 0, -196600, 0, 0, -196599, 0, 0, -196598, 0, 0, -196597, 0, 0, -196596, 0, 0, -196595, 0, 0, -196594, 0, 0, -196593, 0, 0, -196592, 0, 0, -196591, 0, 0, -196590, 0, 0, -196589, 0, 0, -196588, 0, 0, -196587, 0, 0, -196586, 0, 0, -196585, 0, 0, -196584, 0, 0, -196583, 0, 0, -196582, 0, 0, -196581, 0, 0, -196580, 0, 0, -196579, 0, 0, -196578, 0, 0, -65543, 0, 0, -65542, 0, 0, -65541, 0, 0, -65540, 0, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 0, 0, -131068, 0, 0, -131067, 0, 0, -131066, 0, 0, -131065, 0, 0, -131064, 0, 0, -131063, 0, 0, -131060, 0, 0, -131059, 0, 0, -131058, 0, 0, -131057, 0, 0, -131056, 0, 0, -131055, 0, 0, -131054, 0, 0, -131053, 0, 0, -131052, 0, 0, -131051, 0, 0, -131050, 0, 0, -131049, 0, 0, -131048, 0, 0, -131047, 0, 0, -131046, 0, 0, -131045, 0, 0, -131044, 0, 0, -131043, 0, 0, -131042, 0, 0, -7, 0, 0, -6, 0, 0, -5, 0, 0, -4, 0, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, -65518, 0, 0, -65517, 0, 0, -65516, 0, 0, -65515, 0, 0, -65514, 0, 0, -65513, 0, 0, -65512, 0, 0, -65511, 0, 0, -65510, 0, 0, -65509, 0, 0, -65508, 0, 0, -65507, 0, 0, -65506, 0, 0, 65529, 0, 0, 65530, 0, 0, 65531, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0, 23, 0, 0, 24, 0, 0, 25, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 30, 0, 0, 131065, 0, 0, 131066, 0, 0, 131067, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65554, 0, 0, 65555, 0, 0, 65564, 0, 0, 65565, 0, 0, 65566, 0, 0, 196601, 0, 0, 196602, 0, 0, 196603, 0, 0, 131090, 0, 0, 131091, 0, 0, 131100, 0, 0, 131101, 0, 0, 131102, 0, 0, 262137, 0, 0, 262138, 0, 0, 262139, 0, 0, 196636, 0, 0, 196637, 0, 0, 196638, 0, 0, 327673, 0, 0, 327674, 0, 0, 327675, 0, 0, 262157, 0, 0, 262158, 0, 0, 262172, 0, 0, 262173, 0, 0, 262174, 0, 0, 393209, 0, 0, 393210, 0, 0, 393211, 0, 0, 393212, 0, 0, 393213, 0, 0, 393214, 0, 0, 393215, 0, 0, 327693, 0, 0, 327694, 0, 0, 327708, 0, 0, 327709, 0, 0, 327710, 0, 0, 458745, 0, 0, 458746, 0, 0, 458747, 0, 0, 458748, 0, 0, 458749, 0, 0, 458750, 0, 0, 458751, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 393229, 0, 0, 393230, 0, 0, 393243, 0, 0, 393244, 0, 0, 393245, 0, 0, 393246, 0, 0, 524281, 0, 0, 524282, 0, 0, 524283, 0, 0, 524284, 0, 0, 524285, 0, 0, 524286, 0, 0, 524287, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458769, 0, 0, 458770, 0, 0, 458771, 0, 0, 458772, 0, 0, 458773, 0, 0, 458774, 0, 0, 458775, 0, 0, 458776, 0, 0, 458777, 0, 0, 458778, 0, 0, 458779, 0, 0, 458780, 0, 0, 458781, 0, 0, 458782, 0, 0, 589817, 0, 0, 589818, 0, 0, 589819, 0, 0, 589820, 0, 0, 589821, 0, 0, 589822, 0, 0, 589823, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 0, 0, 524307, 0, 0, 524308, 0, 0, 524309, 0, 0, 524310, 0, 0, 524311, 0, 0, 524312, 0, 0, 524313, 0, 0, 524314, 0, 0, 524315, 0, 0, 524316, 0, 0, 524317, 0, 0, 524318, 0, 0, 655353, 0, 0, 655354, 0, 0, 655355, 0, 0, 655356, 0, 0, 655357, 0, 0, 655358, 0, 0, 655359, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589841, 0, 0, 589842, 0, 0, 589843, 0, 0, 589844, 0, 0, 589845, 0, 0, 589846, 0, 0, 589847, 0, 0, 589848, 0, 0, 589849, 0, 0, 589850, 0, 0, 589851, 0, 0, 589852, 0, 0, 589853, 0, 0, 589854, 0, 0, 720889, 0, 0, 720890, 0, 0, 720891, 0, 0, 720892, 0, 0, 720893, 0, 0, 720894, 0, 0, 720895, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 0, 0, 655380, 0, 0, 655381, 0, 0, 655382, 0, 0, 655383, 0, 0, 655384, 0, 0, 655385, 0, 0, 655386, 0, 0, 655387, 0, 0, 655388, 0, 0, 655389, 0, 0, 655390, 0, 0 )
+
+[node name="StompEnemy" parent="TileMap" index="0" instance=ExtResource( 2 )]
+position = Vector2( 54, 0 )
+scale = Vector2( 2, 2 )
+
+[node name="StompEnemy2" parent="TileMap" index="1" instance=ExtResource( 2 )]
+position = Vector2( 198, -9 )
+scale = Vector2( 2, 2 )
+
+[node name="StompEnemy3" parent="TileMap" index="2" instance=ExtResource( 2 )]
+position = Vector2( 369, 27 )
+
+[node name="StompEnemy4" parent="TileMap" index="3" instance=ExtResource( 2 )]
+position = Vector2( 387, 27 )
+
+[node name="StompEnemy5" parent="TileMap" index="4" instance=ExtResource( 2 )]
+position = Vector2( 405, 27 )
+
+[node name="StompEnemy6" parent="TileMap" index="5" instance=ExtResource( 2 )]
+position = Vector2( 423, 27 )
+
+[node name="StompEnemy7" parent="TileMap" index="6" instance=ExtResource( 2 )]
+position = Vector2( 441, 27 )
+
+[node name="Spikes" parent="TileMap" index="7" instance=ExtResource( 3 )]
+position = Vector2( -63, 36 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="Spikes2" parent="TileMap" index="8" instance=ExtResource( 3 )]
+position = Vector2( -45, 36 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="Spikes3" parent="TileMap" index="9" instance=ExtResource( 3 )]
+position = Vector2( -27, 36 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="Spikes4" parent="TileMap" index="10" instance=ExtResource( 3 )]
+position = Vector2( -9, 36 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="Spikes5" parent="TileMap" index="11" instance=ExtResource( 3 )]
+position = Vector2( 9, 36 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="Spikes6" parent="TileMap" index="12" instance=ExtResource( 3 )]
+position = Vector2( 27, 36 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="Spikes8" parent="TileMap" index="13" instance=ExtResource( 3 )]
+position = Vector2( 99, 18 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="Spikes9" parent="TileMap" index="14" instance=ExtResource( 3 )]
+position = Vector2( 117, 18 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="Spikes10" parent="TileMap" index="15" instance=ExtResource( 3 )]
+position = Vector2( 135, 18 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="Spikes11" parent="TileMap" index="16" instance=ExtResource( 3 )]
+position = Vector2( 153, 18 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="Spikes12" parent="TileMap" index="17" instance=ExtResource( 3 )]
+position = Vector2( 171, 18 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="Spikes16" parent="TileMap" index="18" instance=ExtResource( 3 )]
+position = Vector2( 189, -36 )
+rotation = -3.14159
+
+[node name="Spikes17" parent="TileMap" index="19" instance=ExtResource( 3 )]
+position = Vector2( 207, -36 )
+rotation = -3.14159
+
+[node name="Spikes14" parent="TileMap" index="20" instance=ExtResource( 3 )]
+position = Vector2( 333, 54 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="Spikes15" parent="TileMap" index="21" instance=ExtResource( 3 )]
+position = Vector2( 351, 54 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="Spikes13" parent="TileMap" index="22" instance=ExtResource( 3 )]
+position = Vector2( 225, 108 )
+scale = Vector2( 1, 2 )
+
+[node name="Spikes7" parent="TileMap" index="23" instance=ExtResource( 3 )]
+position = Vector2( 81, 18 )
+rotation = -3.14159
+scale = Vector2( 1, 2 )
+
+[node name="porta" parent="TileMap" index="24" instance=ExtResource( 6 )]
+position = Vector2( 477, 126 )
+z_index = -1

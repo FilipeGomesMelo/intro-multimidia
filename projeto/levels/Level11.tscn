@@ -188,21 +188,27 @@ position = Vector2( 9, -54 )
 
 [node name="Spikes21" parent="TileMap" index="46" instance=ExtResource( 6 )]
 position = Vector2( 27, -18 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes22" parent="TileMap" index="47" instance=ExtResource( 6 )]
 position = Vector2( 45, -18 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes23" parent="TileMap" index="48" instance=ExtResource( 6 )]
 position = Vector2( 45, -18 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes24" parent="TileMap" index="49" instance=ExtResource( 6 )]
 position = Vector2( 63, -18 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes25" parent="TileMap" index="50" instance=ExtResource( 6 )]
 position = Vector2( 81, -18 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes26" parent="TileMap" index="51" instance=ExtResource( 6 )]
 position = Vector2( 99, -18 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes38" parent="TileMap" index="52" instance=ExtResource( 6 )]
 position = Vector2( 9, -162 )

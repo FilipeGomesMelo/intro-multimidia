@@ -21,6 +21,7 @@ target_level_path = "res://levels/Level9.tscn"
 
 [node name="Spikes" parent="TileMap" index="1" instance=ExtResource( 6 )]
 position = Vector2( -81, 108 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes36" parent="TileMap" index="2" instance=ExtResource( 6 )]
 position = Vector2( -81, -90 )
@@ -28,9 +29,11 @@ rotation = 3.14159
 
 [node name="Spikes2" parent="TileMap" index="3" instance=ExtResource( 6 )]
 position = Vector2( -63, 108 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes21" parent="TileMap" index="4" instance=ExtResource( 6 )]
 position = Vector2( -117, 126 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes23" parent="TileMap" index="5" instance=ExtResource( 6 )]
 position = Vector2( -126, 108 )
@@ -78,6 +81,7 @@ rotation = 1.57079
 
 [node name="Spikes22" parent="TileMap" index="16" instance=ExtResource( 6 )]
 position = Vector2( -99, 126 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes34" parent="TileMap" index="17" instance=ExtResource( 6 )]
 position = Vector2( -117, -90 )
@@ -89,12 +93,15 @@ rotation = 3.14159
 
 [node name="Spikes3" parent="TileMap" index="19" instance=ExtResource( 6 )]
 position = Vector2( -27, 108 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes4" parent="TileMap" index="20" instance=ExtResource( 6 )]
 position = Vector2( -9, 108 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes5" parent="TileMap" index="21" instance=ExtResource( 6 )]
 position = Vector2( 9, 108 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes6" parent="TileMap" index="22" instance=ExtResource( 6 )]
 position = Vector2( 27, 90 )
@@ -107,18 +114,23 @@ position = Vector2( 63, 90 )
 
 [node name="Spikes9" parent="TileMap" index="25" instance=ExtResource( 6 )]
 position = Vector2( 81, 126 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes10" parent="TileMap" index="26" instance=ExtResource( 6 )]
 position = Vector2( 99, 126 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes11" parent="TileMap" index="27" instance=ExtResource( 6 )]
 position = Vector2( 117, 126 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes12" parent="TileMap" index="28" instance=ExtResource( 6 )]
 position = Vector2( 171, 126 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes13" parent="TileMap" index="29" instance=ExtResource( 6 )]
 position = Vector2( 189, 126 )
+scale = Vector2( 1, 2 )
 
 [node name="Collectable" parent="TileMap" index="30" instance=ExtResource( 3 )]
 position = Vector2( 63, -81 )

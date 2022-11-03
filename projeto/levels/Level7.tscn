@@ -105,6 +105,7 @@ rotation = -1.57079
 
 [node name="Spikes26" parent="TileMap" index="26" instance=ExtResource( 6 )]
 position = Vector2( -63, -126 )
+scale = Vector2( 1, 2 )
 
 [node name="porta" parent="TileMap" index="27" instance=ExtResource( 5 )]
 position = Vector2( 26, -198 )

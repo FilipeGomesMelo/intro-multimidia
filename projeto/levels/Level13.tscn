@@ -17,9 +17,11 @@ tile_data = PoolIntArray( -786436, 0, 0, -786435, 0, 0, -786434, 0, 0, -786433, 
 
 [node name="Spikes" parent="TileMap" index="0" instance=ExtResource( 6 )]
 position = Vector2( 9, 108 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes2" parent="TileMap" index="1" instance=ExtResource( 6 )]
 position = Vector2( 27, 108 )
+scale = Vector2( 1, 2 )
 
 [node name="Spikes3" parent="TileMap" index="2" instance=ExtResource( 6 )]
 position = Vector2( 45, 90 )
