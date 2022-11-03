@@ -2,6 +2,7 @@ extends Node
 
 signal player_died
 signal dash_started
+signal shake_camera
 signal charge_changed
 
 var fruits = 0
